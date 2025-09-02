@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
     'main_app',
 ]
 
@@ -137,11 +139,12 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "author_list"  
 LOGOUT_REDIRECT_URL = "login" 
 
-cloudinary.config( 
-  cloud_name = "CLOUD_NAME", 
-  api_key = "API_KEY", 
-  api_secret = "API_SECRET"
-)
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUD_NAME"),
+    "API_KEY": os.getenv("API_KEY"),
+    "API_SECRET": os.getenv("API_SECRET"),
+}
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 

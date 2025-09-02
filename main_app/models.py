@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary_storage.storage import MediaCloudinaryStorage
+
 
 # Create your models here.
 
@@ -20,7 +22,7 @@ class Visit(models.Model):
     end_date = models.DateTimeField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField()
+    photo = models.ImageField(storage=MediaCloudinaryStorage())
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visits')
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='visits', null=True)    

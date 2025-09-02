@@ -6,14 +6,16 @@
 
 {% block body %}
     <h1>Login</h1>
-    
+
     <form method="post">
         {% csrf_token %}
         <lable for="username">Username:</lable>
         <input type="text" id="username" name="username">
         
         <lable for="password">password:</lable>
-        <input type="text" id="password" name="password">
+        <input type="password" id="password" name="password">
+
+         <p> Dont Have an Account? <a href="{% url "sign-up" %}">Sign Up</a> </p>
 
         <button type="submit">Login</button>
     </form>

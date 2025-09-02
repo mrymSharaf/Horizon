@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock head %}
+
+{% block body %}
+    <h1>Sign Up</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <lable for="username">Username:</lable>
+        <input type="text" id="username" name="username">
+        
+        <lable for="password">password:</lable>
+        <input type="password" id="password" name="password">
+
+        <lable for="first_name">First Name:</lable>
+        <input type="text" id="first_name" name="first_name">
+
+        <lable for="last_name"> Last Name:</lable>
+        <input type="text" id="last_name" name="last_name">
+
+        <p> Have an Account? <a href="{% url "login" %}">Login</a> </p> 
+
+        <button type="submit">Sign Up</button>
+    </form>
+{% endblock body %}

@@ -17,3 +17,8 @@ class VisitListView(ListView):
     model = Visit
     template_name = 'visit/visit-list.html'
     context_object_name = 'visits'
+
+class VisitDetailView(DetailView):
+    model = Visit
+    template_name = 'visit/visit-details.html'
+    context_object_name = 'visit'

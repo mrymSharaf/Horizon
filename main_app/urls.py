@@ -6,5 +6,6 @@ urlpatterns = [
    
    path('visits/all/', views.VisitListView.as_view(), name='visit-list'),
    path('visits/<int:pk>/', views.VisitDetailView.as_view(), name='visit-details'),
+   path('visits/create/', views.VisitCreateView.as_view(), name='visit-create'),
    
 ]

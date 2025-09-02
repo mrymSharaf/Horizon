@@ -56,5 +56,4 @@ class Like(models.Model):
         db_table = 'likes'
     
     def __str__(self):
-        return f'{self.user} liked {self.comment}'
-    
+        return f'{self.user.username} liked {self.comment}'

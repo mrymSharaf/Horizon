@@ -133,6 +133,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "author_list"  
+LOGOUT_REDIRECT_URL = "login" 
+
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.getenv('CLOUD_NAME'),
     "API_KEY": os.getenv('API_KEY'),

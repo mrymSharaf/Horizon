@@ -17,9 +17,10 @@ class Country(models.Model):
 class Visit(models.Model):
     city_name = models.CharField(max_length=70)
     start_date = models.DateTimeField()
-    end_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    photo = models.ImageField()
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visits')
     country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='visits', null=True)    

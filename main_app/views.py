@@ -41,4 +41,26 @@ class VisitCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
     
+class VisistUpdateView(UpdateView):
+    model = Visit
+    template_name = 'visit/visit-form.html'
+    form_class = VisitForm
+    context_object_name = 'visit'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["start_date"] = Visit.start_date
+        context["end_date"] = Visit.end_date
+        return context
+    
+    
+    def get_success_url(self):
+        return reverse('visit-list')
+
+
+class VisitDeleteView(DeleteView):
+    model = Visit
+    context_object_name = 'visit'
+    
+    def get_success_url(self):
+        return reverse('visit-list')

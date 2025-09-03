@@ -6,5 +6,10 @@
 
 {% block body %}
     <h1>Visit details</h1>
-
+    <p> city: {{visit.city_name}} </p>  
+    <a href={% url "visit-update" visit.pk %}>edit</a>
+    <form method="post" action="{% url "visit-delete" visit.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
 {% endblock body %}

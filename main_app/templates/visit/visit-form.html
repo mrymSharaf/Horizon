@@ -10,21 +10,21 @@
     {% csrf_token %}
 
     <label for="city_name">City Name:</label>
-    <input type="text" name="city_name" id="city_name" maxlength="70" required>
+    <input value="{{visit.city_name}}" type="text" name="city_name" id="city_name" maxlength="70" required>
 
     <label for="start_date">Start Date:</label>
-    <input type="date" name="start_date" id="start_date" required>
+    <input value="{{visit.start_date}}" type="date" name="start_date" id="start_date" required>
 
     <label for="end_date">End Date:</label>
-    <input type="date" name="end_date" id="end_date">
+    <input value="{{visit.end_date}}" type="date" name="end_date" id="end_date">
 
     <label for="content">Content:</label>
-    <textarea name="content" id="content" rows="4"></textarea>
+    <textarea value="{{visit.content}}" name="content" id="content" rows="4"></textarea>
 
     <label for="photo">Photo:</label>
-    <input type="file" name="photo" id="photo" accept="image/*" required>
+    <input value="{{visit.photo}}" type="file" name="photo" id="photo" accept="image/*" required>
 
-    <label for="id_country">Country:</label>
+    <label for="country">Country:</label>
         {{ form.country }}
 
     <button type="submit">Post</button>

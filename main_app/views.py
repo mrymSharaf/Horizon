@@ -85,4 +85,13 @@ class CommentCreateView(LoginRequiredMixin,CreateView):
         form.instance.visit = Visit.objects.get(pk=self.kwargs.get('visit_id'))
         return super().form_valid(form)
 
+
+class CommentDeleteView(LoginRequiredMixin,DeleteView):
+    model = Comment
+    context_object_name = "comment"
     
+    def get_success_url(self):
+        return reverse("visit-details", kwargs={"pk": self.object.visit.id})
+    
+    def get_queryset(self):
+        return Comment.objects.filter(user=self.request.user)

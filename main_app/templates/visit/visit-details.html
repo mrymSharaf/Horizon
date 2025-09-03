@@ -19,6 +19,13 @@
       <p>
         <strong>{{ comment.user.username }}</strong>: {{ comment.content }} </p>
         <p>{{comment.created_at}}</p>
+
+        {% if user == comment.user %}
+          <form method="post" action="{% url 'comment-delete' comment.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+          </form>
+      {% endif %}
       
     {% empty %}
       <p>Be the first to comment</p>
@@ -27,7 +34,7 @@
 
   {% if user.is_authenticated %}
     <h3>Add a comment</h3>
-    <form method="post" action="{% url 'comment-create' visit.id %}">
+    <form method="post" action="{% url 'comment-create' visit.pk %}">
         {% csrf_token %}
         <label for="content">Comment:</label>
         <textarea id="content" name="content" required></textarea>

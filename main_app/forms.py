@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.contrib.auth.models import User
-from .models import Visit, Country
+from .models import Visit, Country, Comment
 
 class SignupForm(forms.ModelForm):
     class Meta:
@@ -24,4 +24,9 @@ class VisitForm(forms.ModelForm):
     class Meta:
         model = Visit
         fields = ["city_name", "start_date", "end_date", "content", "photo", "country"]
-        
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["content"]

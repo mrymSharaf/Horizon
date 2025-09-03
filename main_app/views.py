@@ -52,14 +52,7 @@ class VisistUpdateView(LoginRequiredMixin,UpdateView):
     template_name = 'visit/visit-form.html'
     form_class = VisitForm
     context_object_name = 'visit'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["start_date"] = Visit.start_date
-        context["end_date"] = Visit.end_date
-        return context
-    
-    
+
     def get_success_url(self):
         return reverse('visit-list')
 

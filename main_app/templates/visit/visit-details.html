@@ -6,29 +6,60 @@
 
 {% block body %}
     <h1>Visit details</h1>
-    <p> city: {{visit.city_name}} </p>  
-    <a href={% url "visit-update" visit.pk %}>edit</a>
-    <form method="post" action="{% url "visit-delete" visit.pk %}">
+
+    <div>
+
+      {% if visit.photo %}
+        <img src="{{ visit.photo.url }}" alt="Visit photo">
+      {% endif %}
+      
+      <p>{{ visit.user.username }}</p>
+      <p> {{ visit.country.country_name }} - {{ visit.city_name }}</p>
+      
+      {% if visit.content %}
+        <p>{{ visit.content }}</p>
+      {% endif %}
+
+      <p> {{ visit.start_date.date }} - {{ visit.end_date.date|default:"N/A" }}</p>
+      <p> {{ visit.created_at }}</p>
+
+      <form method="post" action="{% url 'toggle_visit_like' visit.pk %}">
         {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+          <button type="submit">
+            {% if did_like_visit %}
+              ♥  {{ visit.likes.count }}
+            {% else %}
+              ♡  {{ visit.likes.count }}
+            {% endif %}
+          </button>
+      </form>
+
+    </div> 
+
+     {% if user == visit.user %}
+     <a href={% url "visit-update" visit.pk %}>edit</a>
+     <form method="post" action="{% url "visit-delete" visit.pk %}">
+         {% csrf_token %}
+         <button type="submit">Delete</button>
+     </form>
+     {% endif %}
 
     <h2>Comments</h2>
   
     {% for comment in comments %}
-      <p>
+
         <strong>{{ comment.user.username }}</strong>: {{ comment.content }} </p>
-        <p>{{comment.created_at}}</p>
+        <p>{{comment.created_at.date}}</p>
 
         {% if user == comment.user %}
-          <form method="post" action="{% url 'comment-delete' comment.pk %}" style="display:inline;">
+          <form method="post" action="{% url 'comment-delete' comment.pk %}">
             {% csrf_token %}
             <button type="submit">Delete</button>
           </form>
-      {% endif %}
+        {% endif %}
       
-    {% empty %}
-      <p>Be the first to comment</p>
+      {% empty %}
+        <p>Be the first to comment</p>
     {% endfor %}
   
 

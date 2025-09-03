@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Visit, Comment
+from django.shortcuts import render, redirect
+from django.views import View
+from .models import Visit, Comment, VisitLike
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
@@ -30,6 +31,13 @@ class VisitDetailView(LoginRequiredMixin,DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comments'] = self.object.comments.all().order_by('-created_at')
+       
+        user = self.request.user
+        if user.is_authenticated:
+            context['did_like_visit'] = VisitLike.objects.filter(user=user, visit=self.object).exists()
+        else:
+            context['did_like_visit'] = False
+
         return context
 
 
@@ -95,3 +103,12 @@ class CommentDeleteView(LoginRequiredMixin,DeleteView):
     
     def get_queryset(self):
         return Comment.objects.filter(user=self.request.user)
+    
+
+class ToggleVisitLike(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        visit = Visit.objects.get(pk=pk)
+        like, created = VisitLike.objects.get_or_create(user=request.user, visit=visit)
+        if not created: 
+            like.delete()
+        return redirect('visit-details', pk=visit.pk) 

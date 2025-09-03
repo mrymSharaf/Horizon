@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +7,14 @@
 </head>
 <body>
     <nav>
+        {% if user.is_authenticated%}
         <a href="{%url 'visit-list'%}">visits</a> |
         <a href="{%url 'visit-create'%}">create visit</a> |
+        <form action="/auth/logout/" method="post">
+             {% csrf_token %}
+            <button>Logout</button>
+      </form>
+      {% endif %}
     </nav>
 
     {% block head %}

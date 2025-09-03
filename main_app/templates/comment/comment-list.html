@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block body %}
+    <h1>Comments</h1>
+    {% for comment in comments %}
+        <p><strong> {{comment.content}}</strong> - {{comment.created_at}} </p>
+    {% endfor %}
+{% endblock body %}

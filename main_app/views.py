@@ -64,3 +64,9 @@ class VisitDeleteView(DeleteView):
     
     def get_success_url(self):
         return reverse('visit-list')
+
+
+class CommentListView(ListView):
+    model = Comment
+    template_name = 'comment/comment-list.html'
+    context_object_name = 'comments'

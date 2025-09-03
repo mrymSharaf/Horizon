@@ -10,4 +10,6 @@ urlpatterns = [
    path('visits/<int:pk>/edit/', views.VisistUpdateView.as_view(), name='visit-update'),
    path('visits/<int:pk>/delete/', views.VisitDeleteView.as_view(), name='visit-delete'),
    
+   path('comments/all/', views.CommentListView.as_view(), name='comment-list'),
+   
 ]

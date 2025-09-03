@@ -15,5 +15,6 @@ urlpatterns = [
    path('comments/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
    
    path("visits/<int:pk>/like/", views.ToggleVisitLike.as_view(), name="toggle_visit_like"),
+   path("comments/<int:pk>/like/", views.ToggleCommentLike.as_view(), name="toggle_comment_like"),
 
 ]

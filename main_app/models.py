@@ -50,12 +50,23 @@ class Comment(models.Model):
     
     
     
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+class CommentLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_likes')
     comment = models.ForeignKey(Comment, on_delete= models.CASCADE, related_name='likes')
     
     class Meta:
-        db_table = 'likes'
+        db_table = 'comment_likes'
     
     def __str__(self):
         return f'{self.user.username} liked {self.comment}'
+    
+
+class VisitLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visit_likes')
+    visit = models.ForeignKey(Visit, on_delete= models.CASCADE, related_name='likes')
+    
+    class Meta:
+        db_table = 'visit_likes'
+    
+    def __str__(self):
+        return f'{self.user.username} liked {self.visit}'

@@ -70,3 +70,4 @@ class CommentListView(ListView):
     model = Comment
     template_name = 'comment/comment-list.html'
     context_object_name = 'comments'
+

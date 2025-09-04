@@ -22,6 +22,9 @@ class VisitListView(LoginRequiredMixin,ListView):
     model = Visit
     template_name = 'visit/visit-list.html'
     context_object_name = 'visits'
+    
+    def get_queryset(self):
+        return Visit.objects.all().order_by('-created_at')
 
 
 class VisitDetailView(LoginRequiredMixin,DetailView):

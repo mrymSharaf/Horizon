@@ -14,6 +14,7 @@
              {% csrf_token %}
             <button>Logout</button>
       </form>
+      <a href="{% url "user-details" user.pk %}">Profile</a>
       {% endif %}
     </nav>
 

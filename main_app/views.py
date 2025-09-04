@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from main_app.forms import SignupForm, VisitForm , CommentForm
+from main_app.forms import SignupForm, VisitForm , CommentForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
@@ -165,3 +165,15 @@ class UserDetailView(LoginRequiredMixin,DetailView):
         context = super().get_context_data(**kwargs)
         context["visits"] = self.object.visits.all().order_by('-created_at')  
         return context
+
+
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = User
+    template_name = "user/user-update.html"
+    form_class = UserUpdateForm
+
+    def test_func(self):
+       return self.request.user == self.get_object()
+   
+    def get_success_url(self):
+        return reverse_lazy("user-details", kwargs={"pk": self.object.id})

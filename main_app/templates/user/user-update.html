@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block body %}
+<h1>Update {{user.username}}'s Profile</h1>
+<form method="post">
+    {% csrf_token %}
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ form.username.value }}" required>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" value="{{ form.first_name.value }}">
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" value="{{ form.last_name.value }}">
+
+        <button type="submit">Save</button>
+        <a href="{% url "user-details" user.pk %}">Back</a>
+    </form>
+
+{% endblock body %}

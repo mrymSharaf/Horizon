@@ -18,5 +18,6 @@ urlpatterns = [
    path('comments/<int:pk>/like/', views.ToggleCommentLike.as_view(), name='toggle_comment_like'),
    
    path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-details'),
+   path('users/<int:pk>/edit', views.UserUpdateView.as_view(), name='user-update'),
    
 ]

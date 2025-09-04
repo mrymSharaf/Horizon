@@ -14,8 +14,16 @@
         
         <lable for="password">password:</lable>
         <input type="password" id="password" name="password">
+        
+        {% if form.non_field_errors %}
+           <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+           </ul>
+        {% endif %}
 
-         <p> Dont Have an Account? <a href="{% url "sign-up" %}">Sign Up</a> </p>
+        <p> Dont Have an Account? <a href="{% url "sign-up" %}">Sign Up</a> </p>
 
         <button type="submit">Login</button>
     </form>

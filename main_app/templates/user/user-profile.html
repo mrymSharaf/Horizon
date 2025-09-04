@@ -8,6 +8,7 @@
 
     {% if request.user == user %}
     <a href="{% url "user-update" user.pk%}">update profile</a>
+    <a href="{% url "user-delete" user.pk%}">delete account</a>
     {% endif %}
 
     <h1>{{user.username}} Profile</h1>

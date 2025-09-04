@@ -180,8 +180,17 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return reverse_lazy("user-details", kwargs={"pk": self.object.id})
 
 
-class UserChangePassword(PasswordChangeView):
+class UserChangePassword(UserPassesTestMixin, PasswordChangeView):
     template_name = 'user/user-change-password.html'
     
     def get_success_url(self):
         return reverse_lazy("user-details", kwargs={"pk": self.request.user.pk})
+    
+
+class UserDeleteView(UserPassesTestMixin, DeleteView):
+    model = User
+    template_name = 'user/user-confirm-delete.html'
+    success_url = reverse_lazy('sign-up')
+    
+    def test_func(self):
+        return self.request.user == self.get_object()

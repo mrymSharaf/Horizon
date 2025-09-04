@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -9,11 +9,11 @@
 
     <div>
 
+      <p>{{ visit.user.username }}</p>
       {% if visit.photo %}
-        <img src="{{ visit.photo.url }}" alt="Visit photo">
+        <img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;">
       {% endif %}
       
-      <p>{{ visit.user.username }}</p>
       <p> {{ visit.country.country_name }} - {{ visit.city_name }}</p>
       
       {% if visit.content %}
@@ -21,18 +21,18 @@
       {% endif %}
 
       <p> {{ visit.start_date.date }} - {{ visit.end_date.date|default:"N/A" }}</p>
-      <p> {{ visit.created_at }}</p>
+      <p> {{ visit.created_at.date }}</p>
 
-      <form method="post" action="{% url 'toggle_visit_like' visit.pk %}">
+    <form method="post" action="{% url 'toggle_visit_like' visit.pk %}" class="like-form" id="{{ visit.pk }}">
         {% csrf_token %}
-          <button type="submit">
-            {% if did_like_visit %}
-              ♥  {{ visit.likes.count }}
-            {% else %}
-              ♡  {{ visit.likes.count }}
-            {% endif %}
-          </button>
-      </form>
+        <button type="submit" class="like-btn{{ visit.pk }}">
+        {% if did_like_visit %}
+          <span class="like-count{{ visit.pk }}"> ♥ {{ visit.likes.count }} </span>
+        {% else %}
+          <span class="like-count{{ visit.pk }}"> ♡ {{ visit.likes.count }} </span>
+        {% endif %}
+        </button>
+    </form>
 
     </div> 
 
@@ -51,16 +51,16 @@
         <strong>{{ comment.user.username }}</strong>: {{ comment.content }} </p>
         <p>{{comment.created_at.date}}</p>
 
-         <form method="post" action="{% url 'toggle_comment_like' comment.pk %}">
-            {% csrf_token %}
-              <button type="submit">
+    <form method="post" action="{% url 'toggle_comment_like' comment.pk %}" class="comment-like-form" id="{{ comment.pk }}">
+        {% csrf_token %}
+        <button type="submit" class="comment-like-btn{{ comment.pk }}">
             {% if comment.did_like %}
-                ♥ {{ comment.likes.count }}
+                <span class="comment-like-count{{ comment.pk }}"> ♥ {{ comment.likes.count }} </span>
             {% else %}
-                ♡ {{ comment.likes.count }}
+                <span class="comment-like-count{{ comment.pk }}"> ♡ {{ comment.likes.count }} </span>
             {% endif %}
-             </button>
-          </form>
+        </button>
+    </form>
 
         {% if user == comment.user %}
           <form method="post" action="{% url 'comment-delete' comment.pk %}">
@@ -87,3 +87,84 @@
   {% endif %}
 
 {% endblock body %}
+
+{% block scripts %} 
+<script>
+$(document).ready(function() {
+    let display = false
+    $(".cmt_btn").click(function() {
+        if (display === false) {
+            $(this).next(".comment-box").show("slow")
+            display = true
+        } else {
+            $(this).next(".comment-box").hide("slow")
+            display = false
+        }
+    })
+
+    $('.like-form').submit(function(e){
+        e.preventDefault()
+
+        const post_id = $(this).attr('id')
+        const likeText = $(`.like-btn${post_id}`).text()
+        const trim = $.trim(likeText)
+        const url = $(this).attr('action')
+
+        let res
+        const likes = $(`.like-count${post_id}`).text()
+        const trimCount = parseInt(likes)
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'post_id': post_id,
+            },
+            success: function(response) {
+                if(trim.includes('♥')) {
+                    $(`.like-btn${post_id}`).html(`♡ <span class="like-count${post_id}">${response.count}</span>`)
+                } else {
+                    $(`.like-btn${post_id}`).html(`♥ <span class="like-count${post_id}">${response.count}</span>`)
+                }
+            },
+            error: function(response) {
+                console.log('error', response)
+            }
+        })
+    })
+
+    $('.comment-like-form').submit(function(e){
+        e.preventDefault()
+
+        const comment_id = $(this).attr('id')
+        const likeText = $(`.comment-like-btn${comment_id}`).text()
+        const trim = $.trim(likeText)
+        const url = $(this).attr('action')
+
+        let res
+        const likes = $(`.comment-like-count${comment_id}`).text()
+        const trimCount = parseInt(likes)
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'comment_id': comment_id,
+            },
+            success: function(response) {
+                if(trim.includes('♥')) {
+                    $(`.comment-like-btn${comment_id}`).html(`♡ <span class="comment-like-count${comment_id}">${response.count}</span>`)
+                } else {
+                    $(`.comment-like-btn${comment_id}`).html(`♥ <span class="comment-like-count${comment_id}">${response.count}</span>`)
+                }
+            },
+            error: function(response) {
+                console.log('error', response)
+            }
+        })
+    })
+})
+</script>
+{% endblock scripts %}

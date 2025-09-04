@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import Visit, Comment, VisitLike, CommentLike
@@ -118,6 +119,17 @@ class ToggleVisitLike(LoginRequiredMixin, View):
         like, created = VisitLike.objects.get_or_create(user=request.user, visit=visit)
         if not created: 
             like.delete()
+            liked = False
+        else:
+            liked = True
+    
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':     
+             data = {
+                'liked': liked,
+                'count': visit.likes.count(),
+                 }
+             return JsonResponse(data)
+            
         return redirect('visit-details', pk=visit.pk) 
     
 
@@ -127,4 +139,15 @@ class ToggleCommentLike(LoginRequiredMixin, View):
         like, created = CommentLike.objects.get_or_create(user=request.user, comment=comment)
         if not created:  
             like.delete()
+            liked = False
+        else:
+            liked = True
+        
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            data = {
+             'liked': liked,
+             'count': comment.likes.count(),
+             }
+            return JsonResponse(data)
+            
         return redirect('visit-details', pk=comment.visit.pk)

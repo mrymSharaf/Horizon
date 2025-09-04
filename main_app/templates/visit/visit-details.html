@@ -54,7 +54,7 @@
          <form method="post" action="{% url 'toggle_comment_like' comment.pk %}">
             {% csrf_token %}
               <button type="submit">
-            {% if comment_likes %}
+            {% if comment.did_like %}
                 ♥ {{ comment.likes.count }}
             {% else %}
                 ♡ {{ comment.likes.count }}

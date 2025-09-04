@@ -30,20 +30,21 @@ class VisitDetailView(LoginRequiredMixin,DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        comment_likes = {}
         comments = self.object.comments.all().order_by('-created_at')
-        context['comments'] = comments  
-             
+        context['comments'] = comments
+
         user = self.request.user
         if user.is_authenticated:
             context['did_like_visit'] = VisitLike.objects.filter(user=user, visit=self.object).exists()
-            
-        for comment in comments:
-            comment_likes[comment.id] = CommentLike.objects.filter(user=user, comment=comment).exists()
-            context['comment_likes'] = comment_likes
+
+            for comment in comments:
+                comment.did_like = CommentLike.objects.filter(user=user, comment=comment).exists()
         else:
             context['did_like_visit'] = False
-            context['comment_likes'] = {}
+
+            for comment in comments:
+                comment.did_like = False
+
         return context
 
 

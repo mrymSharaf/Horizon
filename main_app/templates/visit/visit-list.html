@@ -6,8 +6,11 @@
 {% block body %}
     <h1>all visits</h1>
     {% for visit in visits  %}
-        <p><strong> {{visit.city_name}}</strong> </p>
-        <a href="{% url 'visit-details' visit.id%}"> Visit Details</a>
+        <a href="{% url "user-details" visit.user.pk %}">{{visit.user.username}}</a>
+        <img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;">
+        <a href="{% url 'visit-details' visit.id%}"><strong> {{visit.city_name}}</strong> {{visit.country.country_name}}</a>
+        <p>{{visit.content}}</p>
+        <p>{{visit.created_at.date}}</p>
     {% endfor %}
 {% endblock body %}
 

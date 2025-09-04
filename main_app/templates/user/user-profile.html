@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block body %}
+    <h1>{{user.username}} Profile</h1>
+
+   {% if visits %}
+    {% for visit in visits %}
+        <img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;">
+        <a href="{% url "visit-details" visit.pk %}">{{ visit.city_name }} {{ visit.country.country_name }}</a>
+        <p>{{ visit.content }}</p>
+        <p>{{visit.created_at.date}}</p>
+    {% endfor %}
+    {% else %}
+    <p>Create a Post</p>
+   {% endif %}
+
+    
+{% endblock body %}
+

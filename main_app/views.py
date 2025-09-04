@@ -151,3 +151,14 @@ class ToggleCommentLike(LoginRequiredMixin, View):
             return JsonResponse(data)
             
         return redirect('visit-details', pk=comment.visit.pk)
+
+
+class UserDetailView(LoginRequiredMixin,DetailView):
+    model = User
+    template_name = 'user/user-profile.html'
+    context_object_name = 'user'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["visits"] = self.object.visits.all().order_by('-created_at')  
+        return context

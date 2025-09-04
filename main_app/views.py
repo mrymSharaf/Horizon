@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from main_app.forms import SignupForm, VisitForm , CommentForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 
 # Create your views here.
 
@@ -169,7 +170,7 @@ class UserDetailView(LoginRequiredMixin,DetailView):
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = User
-    template_name = "user/user-update.html"
+    template_name = 'user/user-update.html'
     form_class = UserUpdateForm
 
     def test_func(self):
@@ -177,3 +178,10 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
    
     def get_success_url(self):
         return reverse_lazy("user-details", kwargs={"pk": self.object.id})
+
+
+class UserChangePassword(PasswordChangeView):
+    template_name = 'user/user-change-password.html'
+    
+    def get_success_url(self):
+        return reverse_lazy("user-details", kwargs={"pk": self.request.user.pk})

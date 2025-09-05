@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>  
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin="">
+    </script>
+
+    <style>
+        #map {
+            height: 400px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock head %}
+
+{% block body %}
+    <h2>{{ country.country_name }}</h2>
+
+    <div id="map"></div>
+        {% for visit in visits %}
+            <div>
+                <a href={% url "user-details" visit.user.pk %}><p>{{ visit.user.username }}</p></a>
+                <a href="{% url "visit-details" visit.pk %}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"></a>
+                <h4>{{ visit.city_name }}</h4>
+                <p>visited on {{ visit.start_date.date}}</p>
+            </div>
+            {% empty %}
+             <p>No posts for this country</p>
+        {% endfor %}
+
+{% endblock body %}
+
+{% block scripts %}
+<script>
+    var map = L.map('map').setView([{{ country.latitude }}, {{ country.longitude }}], 5)
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map)
+
+    L.marker([{{ country.latitude }}, {{ country.longitude }}])
+      .addTo(map)
+      .bindPopup("{{ country.country_name }}")
+      .openPopup()
+  </script>
+{% endblock scripts %}

@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Visit, Comment, VisitLike, CommentLike
+from .models import Visit, Comment, VisitLike, CommentLike, Country
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
@@ -221,3 +221,14 @@ class UserDeleteView(UserPassesTestMixin, DeleteView):
     
     def test_func(self):
         return self.request.user == self.get_object()
+    
+
+class CountryDetailView(DetailView):
+    model = Country
+    template_name = 'country/country-details.html'
+    context_object_name = 'country'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['visits'] = self.get_object().visits.all().order_by('-created_at') 
+        return context 

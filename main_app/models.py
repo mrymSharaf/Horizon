@@ -7,6 +7,8 @@ from cloudinary_storage.storage import MediaCloudinaryStorage
 
 class Country(models.Model):
     country_name = models.CharField(max_length=50, unique=True)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     
     class Meta:
         db_table = 'countries'

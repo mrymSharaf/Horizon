@@ -21,7 +21,7 @@
         </button>
         </form>
         
-        <p><strong> {{visit.city_name}}</strong> {{visit.country.country_name}}</p>
+        <a href="{% url "country-details" visit.country.pk %}"><strong> {{visit.city_name}}</strong> {{visit.country.country_name}}</a>
         <p>{{visit.content}}</p>
         <p>{{visit.created_at.date}}</p>
     {% endfor %}

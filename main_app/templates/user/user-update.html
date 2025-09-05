@@ -6,8 +6,11 @@
 
 {% block body %}
 <h1>Update {{user.username}}'s Profile</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+
+        <label for="profile_photo">Profile Photo:</label>
+        <input type="file" name="profile_photo" id="profile_photo" accept="image/*">
 
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="{{ form.username.value }}" required>

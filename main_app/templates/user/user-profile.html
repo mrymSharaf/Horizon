@@ -7,24 +7,30 @@
 {% block body %}
 
     {% if request.user == user %}
-    <a href="{% url "user-update" user.pk%}">update profile</a>
-    <a href="{% url "user-delete" user.pk%}">delete account</a>
+    <a href="{% url 'user-update' user.pk%}">update profile</a>
+    <a href="{% url 'user-delete' user.pk%}">delete account</a>
     {% endif %}
 
     <h1>{{user.username}} Profile</h1>
-    <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
+
+    {% if user.profile.profile_photo %}
+        <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
+    {% else %}
+        <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile" >
+    {% endif %}
+
 
 
 
    {% if visits %}
     {% for visit in visits %}
-        <a href="{% url "visit-details" visit.pk %}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"> </a>
+        <a href="{% url 'visit-details' visit.pk %}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"> </a>
         <p>{{ visit.city_name }} {{ visit.country.country_name }}</p>
         <p>{{ visit.content }}</p>
         <p>{{visit.created_at.date}}</p>
     {% endfor %}
     {% else %}
-    <a href="{% url "visit-create" %}">Create a Post</a>
+    <a href="{% url 'visit-create' %}">Create a Post</a>
    {% endif %}
 
     

@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 from .models import Visit, Country, Comment, Profile
 
 class SignupForm(forms.ModelForm):
-    profile_photo = forms.ImageField(required=True)
+    profile_photo = forms.ImageField(required=False)
     
     class Meta:
         model = User
         fields = ["username","first_name","last_name", "password"]
 
-    def save(self):
-     user = super().save()
+    def save(self, commit = False):
+     user = super().save(commit)
      user.set_password(self.cleaned_data["password"])
      user.save()
      
@@ -41,6 +41,17 @@ class CommentForm(forms.ModelForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    profile_photo = forms.ImageField(required=False)
+
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name"] 
+        
+    def save(self, commit = True):
+        user = super().save(commit)
+        profile_photo = self.cleaned_data.get('profile_photo')
+        profile, _ = Profile.objects.get_or_create(user=user)
+        if profile_photo:
+            profile.profile_photo = profile_photo
+            profile.save()
+        return user

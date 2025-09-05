@@ -75,7 +75,7 @@ class VisitLike(models.Model):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(storage=MediaCloudinaryStorage())
+    profile_photo = models.ImageField(storage=MediaCloudinaryStorage(),blank=True, null=True)
 
     class Meta:
         db_table = 'profile'

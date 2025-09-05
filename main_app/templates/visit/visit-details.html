@@ -9,7 +9,15 @@
 
     <div>
 
-      <p>{{ visit.user.username }}</p>
+      {% comment %} <a href="{% url 'user-details' visit.user.pk %}">
+        {% if user.profile.profile_photo %}
+          <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
+        {% else %}
+          <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile" >
+        {% endif %}
+      </a> {% endcomment %}
+
+      <a href="{% url 'user-details' visit.user.pk %}">{{ visit.user.username }}</a>
       {% if visit.photo %}
         <img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;">
       {% endif %}
@@ -155,9 +163,9 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if(trim.includes('♥')) {
-                    $(`.comment-like-btn${comment_id}`).html(`♡ <span class="comment-like-count${comment_id}">${response.count}</span>`)
+                    $(`.comment-like-btn${comment_id}`).html(`<span class="comment-like-count${comment_id}">♡ ${response.count}</span>`)
                 } else {
-                    $(`.comment-like-btn${comment_id}`).html(`♥ <span class="comment-like-count${comment_id}">${response.count}</span>`)
+                    $(`.comment-like-btn${comment_id}`).html(`<span class="comment-like-count${comment_id}">♥ ${response.count}</span>`)
                 }
             },
             error: function(response) {

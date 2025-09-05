@@ -7,6 +7,15 @@
 {% block body %}
     <h1>all visits</h1>
     {% for visit in visits  %}
+
+        {% comment %} <a href="{% url 'user-details' visit.user.pk %}">
+        {% if user.profile.profile_photo %}
+          <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
+        {% else %}
+          <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile" >
+        {% endif %}
+        </a> {% endcomment %}
+
         <a href="{% url "user-details" visit.user.pk %}">{{visit.user.username}}</a>
         <a href="{% url 'visit-details' visit.id%}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"></a>
 

@@ -12,6 +12,17 @@
         <label for="profile_photo">Profile Photo:</label>
         <input type="file" name="profile_photo" id="profile_photo" accept="image/*">
 
+        <div>
+            <img id="profilePreview"
+             src="{% if request.user.profile.profile_photo %}
+                    {{ request.user.profile.profile_photo.url }}
+                {% else %}
+                     https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif
+                {% endif %}"
+             alt="Profile Photo"
+             style="width:150px; height:150px; object-fit:cover;">
+        </div>
+
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="{{ form.username.value }}" required>
 
@@ -21,10 +32,35 @@
         <label for="last_name">Last Name:</label>
         <input type="text" id="last_name" name="last_name" value="{{ form.last_name.value }}">
 
-        <a href="{% url "user-change-password" %}">Change Password</a>
+        <a href="{% url 'user-change-password' %}">Change Password</a>
 
         <button type="submit">Save</button>
-        <a href="{% url "user-details" user.pk %}">Back</a>
+        <a href="{% url 'user-details' user.pk %}">Back</a>
     </form>
 
 {% endblock body %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.getElementById("profile_photo")
+        const previewImage = document.getElementById("profilePreview")
+        
+        fileInput.addEventListener("change", function(event) {
+            const files = event.target.files
+
+            if (files && files.length > 0) {
+
+                const file = files[0]
+
+                if (file.type.startsWith("image/")) {
+                    const imageURL = URL.createObjectURL(file)
+                    previewImage.src = imageURL
+                } else {
+                    previewImage.src = ""
+                }
+            }
+        })
+    })
+</script>
+{% endblock scripts %}

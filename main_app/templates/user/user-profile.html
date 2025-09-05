@@ -12,6 +12,8 @@
     {% endif %}
 
     <h1>{{user.username}} Profile</h1>
+    <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
+
 
 
    {% if visits %}

@@ -6,8 +6,20 @@
 {% block body %}
     <h1>Sign Up</h1>
     
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
+        <label for="profile_photo">Profile Photo:</label>
+        <input type="file" name="profile_photo" id="profile_photo" accept="image/*">
+
+        {% if form.profile_photo.errors %}
+            <ul>
+            {% for error in form.profile_photo.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 

@@ -1,9 +1,11 @@
 # forms.py
 from django import forms
 from django.contrib.auth.models import User
-from .models import Visit, Country, Comment
+from .models import Visit, Country, Comment, Profile
 
 class SignupForm(forms.ModelForm):
+    profile_photo = forms.ImageField(required=True)
+    
     class Meta:
         model = User
         fields = ["username","first_name","last_name", "password"]
@@ -12,6 +14,12 @@ class SignupForm(forms.ModelForm):
      user = super().save()
      user.set_password(self.cleaned_data["password"])
      user.save()
+     
+     profile, created = Profile.objects.get_or_create(user=user)
+     if self.cleaned_data.get("profile_photo"):
+        profile.profile_photo= self.cleaned_data["profile_photo"]
+        profile.save()
+
      return user
 
 

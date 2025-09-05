@@ -26,6 +26,12 @@ class VisitListView(LoginRequiredMixin,ListView):
     
     def get_queryset(self):
         return Visit.objects.all().order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context['liked_visits'] = set(VisitLike.objects.filter(user=user).values_list('visit_id', flat=True))
+        return context
 
 
 class VisitDetailView(LoginRequiredMixin,DetailView):
@@ -35,10 +41,12 @@ class VisitDetailView(LoginRequiredMixin,DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
         comments = self.object.comments.all().order_by('-created_at')
         context['comments'] = comments
+        context['liked_visits'] = set(VisitLike.objects.filter(user=user).values_list('visit_id', flat=True))
 
-        user = self.request.user
+
         if user.is_authenticated:
             context['did_like_visit'] = VisitLike.objects.filter(user=user, visit=self.object).exists()
 
@@ -135,6 +143,25 @@ class ToggleVisitLike(LoginRequiredMixin, View):
              return JsonResponse(data)
             
         return redirect('visit-details', pk=visit.pk) 
+    
+class ToggleVisitLikeFeed(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        visit = Visit.objects.get(pk=pk)
+        like, created = VisitLike.objects.get_or_create(user=request.user, visit=visit)
+        if not created: 
+            like.delete()
+            liked = False
+        else:
+            liked = True
+    
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':     
+             data = {
+                'liked': liked,
+                'count': visit.likes.count(),
+                 }
+             return JsonResponse(data)
+            
+        return redirect('visit-list') 
     
 
 class ToggleCommentLike(LoginRequiredMixin, View):

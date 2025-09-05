@@ -15,6 +15,7 @@ urlpatterns = [
    path('comments/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'),
    
    path('visits/<int:pk>/like/', views.ToggleVisitLike.as_view(), name='toggle_visit_like'),
+   path('visits/<int:pk>/like/feed/', views.ToggleVisitLikeFeed.as_view(), name='toggle_visit_like_feed'),
    path('comments/<int:pk>/like/', views.ToggleCommentLike.as_view(), name='toggle_comment_like'),
    
    path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-details'),

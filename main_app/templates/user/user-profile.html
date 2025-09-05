@@ -16,8 +16,8 @@
 
    {% if visits %}
     {% for visit in visits %}
-        <img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;">
-        <a href="{% url "visit-details" visit.pk %}">{{ visit.city_name }} {{ visit.country.country_name }}</a>
+        <a href="{% url "visit-details" visit.pk %}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"> </a>
+        <p>{{ visit.city_name }} {{ visit.country.country_name }}</p>
         <p>{{ visit.content }}</p>
         <p>{{visit.created_at.date}}</p>
     {% endfor %}

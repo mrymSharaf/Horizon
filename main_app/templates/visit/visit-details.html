@@ -26,7 +26,7 @@
     <form method="post" action="{% url 'toggle_visit_like' visit.pk %}" class="like-form" id="{{ visit.pk }}">
         {% csrf_token %}
         <button type="submit" class="like-btn{{ visit.pk }}">
-        {% if did_like_visit %}
+        {% if visit.pk in liked_visits %}
           <span class="like-count{{ visit.pk }}"> ♥ {{ visit.likes.count }} </span>
         {% else %}
           <span class="like-count{{ visit.pk }}"> ♡ {{ visit.likes.count }} </span>
@@ -122,10 +122,10 @@ $(document).ready(function() {
                 'post_id': post_id,
             },
             success: function(response) {
-                if(trim.includes('♥')) {
-                    $(`.like-btn${post_id}`).html(`♡ <span class="like-count${post_id}">${response.count}</span>`)
+                if(!response.liked) {
+                    $(`.like-btn${post_id}`).html(`<span class="like-count${post_id}">♡ ${response.count}</span>`)
                 } else {
-                    $(`.like-btn${post_id}`).html(`♥ <span class="like-count${post_id}">${response.count}</span>`)
+                    $(`.like-btn${post_id}`).html(`<span class="like-count${post_id}">♥ ${response.count}</span>`)
                 }
             },
             error: function(response) {

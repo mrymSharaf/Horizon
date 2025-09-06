@@ -30,7 +30,7 @@
         <p>{{visit.created_at.date}}</p>
     {% endfor %}
     {% else %}
-        {% if visit.user %}
+        {% if request.user == user %}
             <a href="{% url 'visit-create' %}">Create a Post</a>
         {% endif %}
     

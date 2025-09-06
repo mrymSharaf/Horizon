@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.contrib.auth.models import User
-from .models import Visit, Country, Comment, Profile
+from .models import Visit, Country, Comment, Profile, City
 
 class SignupForm(forms.ModelForm):
     profile_photo = forms.ImageField(required=False)
@@ -28,10 +28,15 @@ class VisitForm(forms.ModelForm):
         queryset= Country.objects.all(),
         empty_label= "Select a country"
     )
+    
+    city = forms.ModelChoiceField(
+        queryset= City.objects.all(),
+        empty_label= "Select a city"
+    )
 
     class Meta:
         model = Visit
-        fields = ["city_name", "start_date", "end_date", "content", "photo", "country"]
+        fields = ["start_date", "end_date", "content", "photo", "country", "city"]
 
 
 class CommentForm(forms.ModelForm):

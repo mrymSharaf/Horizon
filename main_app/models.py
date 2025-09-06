@@ -16,10 +16,19 @@ class Country(models.Model):
     def __str__(self):
         return self.country_name
     
+
+class City(models.Model):
+    country = models.ForeignKey(Country,on_delete=models.CASCADE)
+    city_name = models.CharField(max_length=40)
     
+    class Meta:
+        db_table = 'city'
+    
+    def __str__(self):
+        return self.city_name
+
     
 class Visit(models.Model):
-    city_name = models.CharField(max_length=70)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField(null=True, blank=True)
     content = models.TextField(null=True, blank=True)
@@ -27,13 +36,14 @@ class Visit(models.Model):
     photo = models.ImageField(storage=MediaCloudinaryStorage())
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='visits')
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='visits', null=True)    
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, related_name='visits', null=True) 
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)   
     
     class Meta:
         db_table = 'visits'
     
     def __str__(self):
-        return self.city_name
+        return self.content
     
     
 

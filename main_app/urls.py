@@ -24,4 +24,6 @@ urlpatterns = [
    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='user-delete'),
    
    path('country/<int:pk>/', views.CountryDetailView.as_view(), name='country-details'),
+   
+   path('search/', views.Search.as_view(), name='search'),
 ]

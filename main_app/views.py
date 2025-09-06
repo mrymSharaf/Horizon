@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from main_app.forms import SignupForm, VisitForm , CommentForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
+from django.db.models import Q
 
 # Create your views here.
 
@@ -232,3 +233,37 @@ class CountryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['visits'] = self.get_object().visits.all().order_by('-created_at') 
         return context 
+    
+
+class Search(TemplateView):
+    template_name = 'search.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        query_request = self.request.GET.get('q', None)
+        
+        if query_request is None:
+            query = ""
+        else:
+            query = query_request.strip()
+            
+        users = User.objects.none()
+        countries = Country.objects.none()
+        
+        if query != "":
+            user_filter = (
+                Q(username__icontains=query) |
+                Q(first_name__icontains=query) |
+                Q(last_name__icontains=query)
+            )
+            users = User.objects.filter(user_filter)
+            
+            country_filter = Q(country_name__icontains=query)
+            countries = Country.objects.filter(country_filter)
+        
+        context['query'] = query
+        context['users'] = users
+        context['countries'] = countries
+        
+        return context

@@ -15,6 +15,12 @@
             <button>Logout</button>
       </form>
       <a href="{% url 'user-details' user.pk %}">Profile</a>
+      
+      <form method="get" action="{% url 'search' %}">
+            <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+        </form>
+
       {% endif %}
     </nav>
 

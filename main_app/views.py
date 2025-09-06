@@ -14,6 +14,10 @@ from django.db.models import Q
 
 # Create your views here.
 
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+
 class SignUpView(CreateView):
     form_class = SignupForm
     template_name = "registration/signup.html"

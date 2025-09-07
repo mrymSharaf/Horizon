@@ -62,6 +62,17 @@
             </ul>
         {% endif %}
 
+        <label for="bio"> Bio:</label>
+        <input type="text" id="bio" name="bio">
+
+        {% if form.bio.errors %}
+            <ul>
+            {% for error in form.bio.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
         <p> Have an Account? <a href="{% url "login" %}">Login</a> </p> 
 
         <button type="submit">Sign Up</button>

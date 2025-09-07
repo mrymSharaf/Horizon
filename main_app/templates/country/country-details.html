@@ -26,7 +26,7 @@
             <div>
                 <a href={% url "user-details" visit.user.pk %}><p>{{ visit.user.username }}</p></a>
                 <a href="{% url "visit-details" visit.pk %}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"></a>
-                <h4>{{ visit.city_name }}</h4>
+                <h4>{{ visit.city.city_name }}</h4>
                 <p>visited on {{ visit.start_date.date}}</p>
             </div>
             {% empty %}

@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Visit, Comment, VisitLike, CommentLike, Country
+from .models import City, Visit, Comment, VisitLike, CommentLike, Country
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
@@ -271,3 +271,9 @@ class Search(TemplateView):
         context['countries'] = countries
         
         return context
+    
+
+def load_cities(request):
+    country_id = request.GET.get('country')
+    cities = City.objects.filter(country_id=country_id).order_by('city_name')
+    return render(request, 'city/city_dropdown_list_options.html', {'cities': cities})

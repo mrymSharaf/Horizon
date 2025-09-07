@@ -27,4 +27,6 @@ urlpatterns = [
    path('country/<int:pk>/', views.CountryDetailView.as_view(), name='country-details'),
    
    path('search/', views.Search.as_view(), name='search'),
+   
+   path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
 ]

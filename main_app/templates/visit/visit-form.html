@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -12,7 +12,7 @@
     <h1>New Post</h1>
   {% endif %}
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="VisitForm" data-cities-url="{% url 'ajax_load_cities' %}">
     {% csrf_token %}
     
     <label for="country">Country:</label>
@@ -47,3 +47,25 @@
   
 
 {% endblock body %}
+
+{% block scripts %}
+
+  <script>
+      $("#id_country").change(function () {
+        var url = $("#VisitForm").attr("data-cities-url") 
+        var countryId = $(this).val()                        
+
+      $.ajax({  
+          url: url,
+          data: {
+             'country': countryId
+          },
+          success: function (data) {
+            $("#id_city").html(data)
+          }
+     })
+    })
+  </script>
+
+{% endblock scripts %}
+

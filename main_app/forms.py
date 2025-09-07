@@ -37,6 +37,19 @@ class VisitForm(forms.ModelForm):
     class Meta:
         model = Visit
         fields = ["start_date", "end_date", "content", "photo", "country", "city"]
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['city'].queryset = City.objects.none()
+        
+        if 'country' in self.data:
+            try:
+                country_id = int(self.data.get('country'))
+                self.fields['city'].queryset = City.objects.filter(country_id=country_id).order_by('city_name')
+            except (ValueError, TypeError):
+                pass 
+        elif self.instance.pk:
+            self.fields['city'].queryset = self.instance.country.city_set.order_by('city_name')
 
 
 class CommentForm(forms.ModelForm):

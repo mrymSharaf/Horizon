@@ -213,7 +213,11 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class UserChangePassword(UserPassesTestMixin, PasswordChangeView):
+    # model = User
     template_name = 'user/user-change-password.html'
+    
+    def test_func(self):
+        return self.request.user
     
     def get_success_url(self):
         return reverse_lazy("user-details", kwargs={"pk": self.request.user.pk})

@@ -17,9 +17,11 @@ class SignupForm(forms.ModelForm):
      user.save()
      
      profile, created = Profile.objects.get_or_create(user=user)
+     profile.bio = self.cleaned_data.get("bio", "")
+     profile.save()
+     
      if self.cleaned_data.get("profile_photo"):
         profile.profile_photo= self.cleaned_data["profile_photo"]
-        profile.bio = self.cleaned_data.get("bio", "")
         profile.save()
 
      return user

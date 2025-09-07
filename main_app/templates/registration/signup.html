@@ -63,7 +63,7 @@
         {% endif %}
 
         <label for="bio"> Bio:</label>
-        <input type="text" id="bio" name="bio">
+        <textarea id="bio" name="bio">{{ form.bio.value|default_if_none:"" }}</textarea>
 
         {% if form.bio.errors %}
             <ul>

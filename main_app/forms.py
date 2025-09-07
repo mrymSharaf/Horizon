@@ -64,6 +64,7 @@ class CommentForm(forms.ModelForm):
 
 class UserUpdateForm(forms.ModelForm):
     profile_photo = forms.ImageField(required=False)
+    bio = forms.CharField(widget=forms.Textarea, required=False)
 
     class Meta:
         model = User
@@ -71,9 +72,12 @@ class UserUpdateForm(forms.ModelForm):
         
     def save(self, commit = True):
         user = super().save(commit)
-        profile_photo = self.cleaned_data.get('profile_photo')
         profile, _ = Profile.objects.get_or_create(user=user)
+        profile.bio = self.cleaned_data.get("bio", "")
+        profile_photo = self.cleaned_data.get('profile_photo')
+        
         if profile_photo:
             profile.profile_photo = profile_photo
-            profile.save()
+            
+        profile.save()
         return user

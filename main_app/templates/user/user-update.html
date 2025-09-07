@@ -32,6 +32,9 @@
         <label for="last_name">Last Name:</label>
         <input type="text" id="last_name" name="last_name" value="{{ form.last_name.value }}">
 
+        <label for="bio"> Bio:</label>
+        <textarea id="bio" name="bio">{{ form.bio.value| default_if_none:"" }}</textarea>
+
         <a href="{% url 'user-change-password' %}">Change Password</a>
 
         <button type="submit">Save</button>

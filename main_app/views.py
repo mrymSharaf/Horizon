@@ -213,7 +213,6 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class UserChangePassword(UserPassesTestMixin, PasswordChangeView):
-    # model = User
     template_name = 'user/user-change-password.html'
     
     def test_func(self):

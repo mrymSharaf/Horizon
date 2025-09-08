@@ -1,36 +1,40 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="{% static 'styles/visit/visit-form.css' %}">
 {% endblock head %}
 
 {% block body %}
+<div class="content">
+  <div class="visit-card">
 
   {% if visit %}
-    <h1>Edit Post</h1>
+    <h1 class="form-title">Edit Post</h1>
   {% else %}
-    <h1>New Post</h1>
+    <h1 class="form-title">New Post</h1>
   {% endif %}
 
-    <form method="post" enctype="multipart/form-data" id="VisitForm" data-cities-url="{% url 'ajax_load_cities' %}">
+    <form method="post" enctype="multipart/form-data" id="VisitForm" data-cities-url="{% url 'ajax_load_cities' %}" class="visit-form">
     {% csrf_token %}
     
-    <label for="country">Country:</label>
+    <label for="country">Country</label>
         {{ form.country }}
 
-    <label for="city_name">City:</label>
+    <label for="city_name">City</label>
         {{form.city}}
 
-    <label for="start_date">Start Date:</label>
+    <label for="start_date">Start Date</label>
     <input value="{{ visit.start_date|date:'Y-m-d' }}" type="date" name="start_date" id="start_date" required>
 
-    <label for="end_date">End Date:</label>
+    <label for="end_date">End Date</label>
     <input value="{{ visit.end_date|date:'Y-m-d' }}" type="date" name="end_date" id="end_date">
 
-    <label for="content">Content:</label>
+    <label for="content">Content</label>
     <textarea name="content" id="content" rows="4">{{visit.content}}</textarea>
 
-    <label for="photo">Photo:</label>
+    <label for="photo">Photo</label>
     <input value="{{visit.photo}}" type="file" name="photo" id="photo" accept="image/*" required>
 
       
@@ -44,7 +48,8 @@
     {% endif %}
 
   </form>
-  
+</div>
+</div>
 
 {% endblock body %}
 

@@ -1,7 +1,7 @@
 .content {
-    flex: 1; 
+    flex: 1;
     padding: 30px 40px;
-    background-color: #f2f2f2; 
+    background-color: #f2f2f2;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -14,25 +14,25 @@
     background-color: #F5F2E9;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 12px;
-    align-items: center; 
+    align-items: center;
     max-width: 600px;
 }
 
 .visit-card .user-info {
     display: flex;
     align-items: center;
-    gap: 12px;            
+    gap: 12px;
     align-self: flex-start;
 }
 
 .user-name-time {
     display: flex;
-    align-items: baseline; 
-    gap: 6px;             
+    align-items: baseline;
+    gap: 6px;
 }
 
 .user-name-time .username {
@@ -47,7 +47,7 @@
 .user-name-time .visit-posted {
     font-size: 0.8rem;
     color: #999;
-    display: inline-block; 
+    display: inline-block;
     margin: 0;
 }
 
@@ -62,7 +62,7 @@
     font-size: 0.75rem;
     color: #999;
     display: inline-block;
-    margin-top: 3.3px;  
+    margin-top: 3.3px;
 }
 
 .visit-card .visit-photo img {
@@ -132,4 +132,24 @@
 .visit-card .visit-date {
     font-size: 0.85rem;
     color: #777;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.welcome-message .heading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #4F4F4D;
+    margin-bottom: 3px; 
+}
+
+.welcome-message .sub-heading {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #777;
+    margin-top: 0;  
 }

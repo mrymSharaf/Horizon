@@ -7,7 +7,11 @@
 {% endblock head %}
 
 {% block body %}
-<h1 class="heading">Welcome, {{user.username}}</h1>
+<div class="welcome-message">
+    <h1 class="heading">Welcome, {{user.username}}</h1>
+    <p class="sub-heading">Start Exploring</p>
+</div>
+
 {% for visit in visits %}
     <div class="visit-card">
         <div class="user-info">

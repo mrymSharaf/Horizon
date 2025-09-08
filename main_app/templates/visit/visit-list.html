@@ -1,39 +1,56 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'styles/visit/all-visits.css' %}">
 {% endblock head %}
 
 {% block body %}
-    <h1>all visits</h1>
-    {% for visit in visits  %}
+<h1 class="heading">Welcome, {{user.username}}</h1>
+{% for visit in visits %}
+    <div class="visit-card">
+        <div class="user-info">
+        <a href="{% url 'user-details' visit.user.pk %}">
+            {% if visit.user.profile.profile_photo %}
+                <img src="{{ visit.user.profile.profile_photo.url }}" alt="{{ visit.user.username }}">
+            {% else %}
+                <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile">
+            {% endif %}
+        </a>
+        <div class="user-name-time">
+            <a href="{% url 'user-details' visit.user.pk %}" class="username">{{ visit.user.username }}</a>
+            <span class="visit-posted"> • {{ visit.created_at|timesince }} ago</span>
+        </div>
+    </div>
 
-        {% comment %} <a href="{% url 'user-details' visit.user.pk %}">
-        {% if user.profile.profile_photo %}
-          <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
-        {% else %}
-          <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile" >
-        {% endif %}
-        </a> {% endcomment %}
+    <div class="visit-photo">
+        <a href="{% url 'visit-details' visit.id %}">
+            <img src="{{ visit.photo.url }}" alt="Visit photo">
+        </a>
+    </div>
 
-        <a href="{% url "user-details" visit.user.pk %}">{{visit.user.username}}</a>
-        <a href="{% url 'visit-details' visit.id%}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"></a>
-
-        <form method="post" action="{% url 'toggle_visit_like_feed' visit.pk %}" class="like-form" id="{{ visit.pk }}">
+    <div class="like-section">
+    <form method="post" action="{% url 'toggle_visit_like_feed' visit.pk %}" class="like-form" id="{{ visit.pk }}">
         {% csrf_token %}
         <button type="submit" class="like-btn{{ visit.pk }}">
-        {% if visit.pk in liked_visits %}
-         <span class="like-count{{ visit.pk }}"> ♥ {{ visit.likes.count }} </span>
-        {% else %}
-          <span class="like-count{{ visit.pk }}"> ♡ {{ visit.likes.count }} </span>
-        {% endif %}
+            {% if visit.pk in liked_visits %}
+                <span class="like-count{{ visit.pk }}"> ♥ {{ visit.likes.count }} </span>
+            {% else %}
+                <span class="like-count{{ visit.pk }}"> ♡ {{ visit.likes.count }} </span>
+            {% endif %}
         </button>
-        </form>
-        
-        <a href="{% url "country-details" visit.country.pk %}"><strong> {{visit.city.city_name}}</strong> {{visit.country.country_name}}</a>
-        <p>{{visit.content}}</p>
-        <p>{{visit.created_at.date}}</p>
-    {% endfor %}
+    </form>
+    </div>
+
+    <a href="{% url 'country-details' visit.country.pk %}">
+        <strong>{{ visit.city.city_name }}</strong> {{ visit.country.country_name }}
+    </a>
+
+    <p>{{ visit.content }}</p>
+    <p class="visit-date">{{ visit.created_at.date }}</p>
+</div>
+{% endfor %}
 {% endblock body %}
 
 {% block scripts %} 

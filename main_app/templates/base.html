@@ -4,25 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}">
 </head>
 <body>
-    <nav>
-        {% if user.is_authenticated%}
-        <a href="{%url 'visit-list'%}">visits</a> |
-        <a href="{%url 'visit-create'%}">create visit</a> |
-        <form action="/auth/logout/" method="post">
-             {% csrf_token %}
-            <button>Logout</button>
-      </form>
-      <a href="{% url 'user-details' user.pk %}">Profile</a>
-      
-      <form method="get" action="{% url 'search' %}">
-            <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
-            <button type="submit">Search</button>
-        </form>
+<div class="layout">
+  <nav class="sidebar">
+      <div class="top-section">
 
+          <div class="sidebar-logo">
+              <a href="{% url 'visit-list' %}">
+                  <img src="{% static 'images/horizon-logo.png' %}" alt="Horizon Logo">
+              </a>
+          </div>
+
+          <form method="get" action="{% url 'search' %}" class="sidebar-search">
+              <label for="search" class="sr-only"></label>
+              <input type="text" id="search" name="q" placeholder="Search" value="{{ request.GET.q }}">
+              <button type="submit">🔍︎</button>
+          </form>
+
+          <ul class="lists">
+              {% if user.is_authenticated %}
+              <li>
+                  <a href="{% url 'user-details' user.pk %}" class="profile-link">
+                      {% if user.profile.profile_photo %}
+                        <img src="{{ user.profile.profile_photo.url }}" alt="{{ user.username }}'s profile picture" style="width:28px;height:28px;border-radius:50%;margin-right:8px;">
+                      {% else %}
+                        <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default profile picture" style="width:28px;height:28px;border-radius:50%;margin-right:8px;">
+                      {% endif %}
+                      <span>{{user.username}}'s profile</span>
+                  </a>
+              </li>
+              {% endif %}
+
+              <li><a href="{% url 'visit-list' %}">Home</a></li>
+              <li><a href="{% url 'visit-create' %}">Post</a></li>
+          </ul>
+      </div>
+
+      {% if user.is_authenticated %}
+      <div class="bottom-section">
+          <form action="/auth/logout/" method="post">
+              {% csrf_token %}
+              <button type="submit" class="logout">Logout</button>
+          </form>
+      </div>
       {% endif %}
-    </nav>
+
+  </nav>
+</div>
 
     {% block head %}
     {% endblock head %}

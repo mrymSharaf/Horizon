@@ -38,14 +38,15 @@
     <input value="{{visit.photo}}" type="file" name="photo" id="photo" accept="image/*" required>
 
       
-        
-    {% if visit %}
-      <button type="submit">Save</button>
-      <a href="{% url "visit-details" visit.pk %}">Back</a>
-    {% else %}
-      <button type="submit">Post</button>
-      <a href="{% url "visit-list" %}">Back</a>
-    {% endif %}
+      <div class="visit-form-actions">
+        {% if visit %}
+          <button  class="visit-save-btn" type="submit">Save</button>
+          <a href="{% url "visit-details" visit.pk %}" class="visit-back-btn">Back</a>
+        {% else %}
+          <button class="visit-save-btn" type="submit">Post</button>
+          <a href="{% url "visit-list" %}" class="visit-back-btn">Back</a>
+        {% endif %}
+      </div>
 
   </form>
 </div>

@@ -31,7 +31,7 @@
                       {% if request.user.profile.profile_photo %}
                         <img src="{{ request.user.profile.profile_photo.url }}" alt="{{ request.user.username }}'s profile picture">
                       {% else %}
-                        <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default profile picture" style="width:28px;height:28px;border-radius:50%;margin-right:8px;">
+                        <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default profile picture">
                       {% endif %}
                       <span>{{request.user.username}}'s profile</span>
                   </a>

@@ -1,41 +1,48 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'styles/user/user-profile.css' %}">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 {% endblock head %}
 
 {% block body %}
+<div class="profile-container">
 
-    {% if request.user == user %}
-    <a href="{% url 'user-update' user.pk%}">update profile</a>
-    <a href="{% url 'user-delete' user.pk%}">delete account</a>
-    {% endif %}
+    <div class="profile-header">
+        <div class="profile-photo">
+            {% if user.profile.profile_photo %}
+                <img src="{{ user.profile.profile_photo.url }}" alt="profile photo">
+            {% else %}
+                <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile">
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <h1 class="username">{{user.username}}</h1>
+            <p class="bio">{{user.profile.bio}}</p>
 
-    <h1>{{user.username}} Profile</h1>
+            {% if request.user == user %}
+            <div class="profile-actions">
+                <a href="{% url 'user-update' user.pk%}" class="btn">Update Profile</a>
+                <a href="{% url 'user-delete' user.pk%}" class="btn delete" class="fa-solid fa-trash">Delete Account</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 
-    {% if user.profile.profile_photo %}
-        <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" style="width:250px; height:300px;">
-    {% else %}
-        <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile" >
-    {% endif %}
-
-    <p>{{user.profile.bio}}</p>
-
-
-   {% if visits %}
-    {% for visit in visits %}
-        <a href="{% url 'visit-details' visit.pk %}"><img src="{{ visit.photo.url }}" alt="Visit photo" style="width:250px; height:300px;"> </a>
-        <a href="{% url 'country-details' visit.country.pk %}">{{ visit.city.city_name }} {{ visit.country.country_name }}</a>
-        <p>{{ visit.content }}</p>
-        <p>{{visit.created_at.date}}</p>
-    {% endfor %}
-    {% else %}
-        {% if request.user == user %}
-            <a href="{% url 'visit-create' %}">Create a Post</a>
+    <div class="profile-posts">
+        {% if visits %}
+            {% for visit in visits %}
+            <a href="{% url 'visit-details' visit.pk %}" class="post-card" >
+                <div class="hidden-text">View more</div>
+                <img src="{{ visit.photo.url }}" alt="Visit photo">
+            </a>
+            {% endfor %}
+        {% else %}
+            {% if request.user == user %}
+                <a href="{% url 'visit-create' %}" class="btn">Create a Post</a>
+            {% endif %}
         {% endif %}
-    
-   {% endif %}
-
-    
+    </div>
+</div>
 {% endblock body %}
-

@@ -1,15 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'styles/user/confirm-delete.css' %}">
 {% endblock head %}
 
 {% block body %}
-<h2>Are you sure you want to delete your account?</h2>
+<div class="confirm-container">
+    <h2 class="confirm-delete">Are you sure you want to delete your account?</h2>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes</button>
-    <a href="{% url "user-details" user.pk %}">No</a>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes</button>
+        <a href="{% url "user-details" user.pk %}">No</a>
+    </form>
+
+</div>
 {% endblock body %}

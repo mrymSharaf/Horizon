@@ -1,0 +1,53 @@
+.confirm-container {
+    max-width: 500px;
+    margin: 150px auto;
+    padding: 50px;
+    background-color: #F5F2E9;
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.confirm-delete {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #4F4F4D;
+    margin-bottom: 25px;
+}
+
+.confirm-container form {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.confirm-container form button,
+.confirm-container form a {
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.confirm-container form button {
+    border: none;
+    background-color: #e63946;
+    color: #fff;
+}
+
+.confirm-container form button:hover {
+    background-color: #b81d2c;
+}
+
+.confirm-container form a {
+    background-color: #4F4F4D;
+    color: #F5F2E9;
+}
+
+.confirm-container form a:hover {
+    background-color: #333;
+    color: #fff;
+}

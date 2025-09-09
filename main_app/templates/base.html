@@ -38,8 +38,8 @@
               </li>
               {% endif %}
 
-              <li><a href="{% url 'visit-list' %}">Home</a></li>
-              <li><a href="{% url 'visit-create' %}">Post</a></li>
+              <li><a href="{% url 'visit-list' %}"><i class="fa-solid fa-house"></i>Home</a></li>
+              <li><a href="{% url 'visit-create' %}"><i class="fa-solid fa-image"></i> Post</a></li>
           </ul>
       </div>
 
@@ -47,7 +47,7 @@
       <div class="bottom-section">
           <form action="/auth/logout/" method="post">
               {% csrf_token %}
-              <button type="submit" class="logout">Logout</button>
+              <button type="submit" class="logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
           </form>
       </div>
       {% endif %}

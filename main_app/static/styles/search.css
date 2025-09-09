@@ -1,0 +1,69 @@
+.search-container {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.search-title {
+    font-size: 1.8rem;
+    color: #4F4F4D;
+    margin-bottom: 20px;
+}
+
+.result-section {
+    margin-bottom: 30px;
+}
+
+.result-section h3 {
+    font-size: 1.4rem;
+    color: #4F4F4D;
+    margin-bottom: 15px;
+}
+
+.result-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.result-card a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.profile-img {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #4F4F4D;
+}
+
+.user-full-name {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 2px;
+}
+
+.no-results {
+    font-style: italic;
+    color: #555;
+    text-align: center;
+    margin-top: 20px;
+}

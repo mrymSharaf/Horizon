@@ -1,43 +1,55 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'styles/search.css' %}">
 {% endblock head %}
 
 {% block body %}
+<div class="search-container">
 
     {% if query %}
-        <h2>Results for "{{ query }}"</h2>
+        <h2 class="search-title">Results for "{{ query }}"</h2>
 
         {% if users %}
+        <div class="result-section">
             <h3>Users</h3>
-            <ul>
                 {% for user in users %}
-                    <li>
+                    <div class="result-card">
                         <a href="{% url 'user-details' user.pk %}">
-                            {{ user.username }} {{ user.first_name }} {{ user.last_name }}
+                            {% if user.profile.profile_photo %}
+                                <img src="{{ user.profile.profile_photo.url }}" alt="profile photo" class="profile-img">
+                            {% else %}
+                                <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default Profile" class="profile-img">
+                            {% endif %}
+                            <div class="user-text">
+                                <span>{{ user.username }} </span>
+                                <span class="user-full-name">{{ user.first_name }} {{ user.last_name }}</span>
+                            </div>
                         </a>
-                    </li>
+                    </div>
                 {% endfor %}
-            </ul>
+        </div>
         {% endif %}
 
         {% if countries %}
+        <div class="result-section">
             <h3>Countries</h3>
-            <ul>
-                {% for country in countries %}
-                    <li>
-                        <a href="{% url 'country-details' country.pk %}">
+            {% for country in countries %}
+                <div class="result-card">
+                    <a href="{% url 'country-details' country.pk %}">
+                        <div class="user-text">
                             {{ country.country_name }}
-                        </a>
-                    </li>
+                        </div>
+                    </a>
+                </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
 
         {% if not users and not countries %}
-            <p>No results found.</p>
+            <p class="no-results">No results found.</p>
         {% endif %}
     {% endif %}
-
+</div>
 {% endblock body %}

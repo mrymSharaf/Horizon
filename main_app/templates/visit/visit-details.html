@@ -24,10 +24,10 @@
                 </div>
                 {% if user == visit.user %}
                 <div class="edit-delete-btns">
-                    <a href="{% url 'visit-update' visit.pk %}" class="action-btn">Edit</a>
-                    <form method="post" action="{% url 'visit-delete' visit.pk %}" style="display:inline;">
+                    <a href="{% url 'visit-update' visit.pk %}"><i class="fa-solid fa-pencil"></i></a>
+                    <form method="post" action="{% url 'visit-delete' visit.pk %}">
                         {% csrf_token %}
-                        <button type="submit" class="action-btn">Delete</button>
+                        <button type="submit"><i class="fa-solid fa-trash"></i></button>
                     </form>
                 </div>
                 {% endif %}
@@ -95,7 +95,7 @@
                   {% if user == comment.user %}
                    <form method="post" action="{% url 'comment-delete' comment.pk %}">
                       {% csrf_token %}
-                      <button type="submit" class="action-btn">Delete</button>
+                      <button type="submit"><i class="fa-solid fa-trash"></i></button>
                     </form>
                   {% endif %}
               </div>

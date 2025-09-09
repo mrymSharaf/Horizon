@@ -24,7 +24,7 @@
 }
 
 .visit-card a:hover {
-    color:#333;
+    color: #333;
 }
 
 .user-info {
@@ -62,8 +62,30 @@
 
 .edit-delete-btns {
     display: flex;
-    gap: 8px;
+    gap: 15px;
     align-items: center;
+}
+
+.edit-delete-btns a,
+.edit-delete-btns button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #888;
+    text-decoration: none;
+    padding: 0;
+}
+
+.edit-delete-btns a:hover,
+.edit-delete-btns button:hover {
+    color: #4F4F4D;
+}
+
+.edit-delete-btns button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .action-btn {
@@ -186,9 +208,27 @@ textarea:focus {
 
 .comment-actions {
     display: flex;
-    gap: 6px;
     align-items: center;
+    gap: 12px;
 }
+
+.comment-actions form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #888;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.comment-actions form button:hover {
+    color: #4F4F4D;
+}
+
 
 .comment-actions button[class^="comment-like-btn"] {
     background: none;

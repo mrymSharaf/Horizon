@@ -18,15 +18,16 @@
             {% endif %}
         </div>
         <div class="profile-info">
-            <h1 class="username">{{user.username}}</h1>
-            <p class="bio">{{user.profile.bio}}</p>
-
-            {% if request.user == user %}
-            <div class="profile-actions">
-                <a href="{% url 'user-update' user.pk%}" class="btn">Update Profile</a>
-                <a href="{% url 'user-delete' user.pk%}" class="btn delete" class="fa-solid fa-trash">Delete Account</a>
+            <div class="username-row">
+                <h1 class="username">{{user.username}}</h1>
+                {% if request.user == user %}
+                    <div class="profile-actions">
+                        <a href="{% url 'user-update' user.pk%}"><i class="fa-solid fa-pencil"></i></a>
+                        <a href="{% url 'user-delete' user.pk%}"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                {% endif %}
             </div>
-            {% endif %}
+            <p class="bio">{{user.profile.bio}}</p>
         </div>
     </div>
 

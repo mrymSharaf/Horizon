@@ -1,17 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'styles/user/user-update.css' %}">
 {% endblock head %}
 
 {% block body %}
-<h1>Update {{user.username}}'s Profile</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-
-        <label for="profile_photo">Profile Photo:</label>
-        <input type="file" name="profile_photo" id="profile_photo" accept="image/*">
-
+<div class="update-form-container">
+    <h1 class="update-form-title">Update {{user.username}}'s Profile</h1>
+    <form method="post" enctype="multipart/form-data" class="update-form">
+        {% csrf_token %}
         <div>
             <img id="profilePreview"
              src="{% if request.user.profile.profile_photo %}
@@ -23,24 +21,29 @@
              style="width:150px; height:150px; object-fit:cover;">
         </div>
 
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="{{ form.username.value }}" required>
+        <label class="update-form-label" for="profile_photo">Profile Photo</label>
+        <input class="update-form-input" type="file" name="profile_photo" id="profile_photo" accept="image/*">
 
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" value="{{ form.first_name.value }}">
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" value="{{ form.last_name.value }}">
+        <label class="update-form-label" for="username">Username</label>
+        <input class="update-form-input" type="text" id="username" name="username" value="{{ form.username.value }}" required>
 
-        <label for="bio"> Bio:</label>
-        <textarea id="bio" name="bio">{{ form.bio.value| default_if_none:"" }}</textarea>
+        <label class="update-form-label"for="first_name">First Name</label>
+        <input class="update-form-input" type="text" id="first_name" name="first_name" value="{{ form.first_name.value }}">
 
-        <a href="{% url 'user-change-password' %}">Change Password</a>
+        <label class="update-form-label" for="last_name">Last Name</label>
+        <input class="update-form-input" type="text" id="last_name" name="last_name" value="{{ form.last_name.value }}">
 
-        <button type="submit">Save</button>
-        <a href="{% url 'user-details' user.pk %}">Back</a>
+        <label class="update-form-label" for="bio"> Bio</label>
+        <textarea id="bio" name="bio">{{ form.profile.bio.value }}</textarea>
+
+        <a href="{% url 'user-change-password' %}" class="update-form-link">Change Password</a>
+        <div class="update-form-actions">
+            <button class="update-save-btn" type="submit">Save</button>
+            <a href="{% url 'user-details' user.pk %}" class="update-back-btn ">Back</a>
+        </div>
     </form>
-
+</div>
 {% endblock body %}
 
 {% block scripts %}

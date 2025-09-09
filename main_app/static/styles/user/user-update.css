@@ -1,0 +1,106 @@
+.update-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #F5F2E9;
+    border-radius: 15px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #4F4F4D;
+}
+
+.update-form-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4F4F4D;
+    margin-bottom: 20px;
+}
+
+.update-form-label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 18px;
+    margin-bottom: 20px;
+}
+
+.update-form-input,
+#bio {
+    margin-top: 9px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.update-form-input:focus,
+#bio:focus {
+    border-color: #4F4F4D;
+    box-shadow: 0 0 5px rgba(79, 79, 77, 0.5);
+}
+
+#profilePreview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px auto;
+    display: block;
+}
+
+.update-form-link {
+    color: #4F4F4D;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.update-form-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.update-form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.update-save-btn {
+    padding: 12px 16px;
+    background-color: #4F4F4D;
+    color: #F5F2E9;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.update-save-btn:hover {
+    background-color: #333;
+}
+
+.update-back-btn {
+    padding: 12px 16px;
+    text-decoration: none;
+    background-color: #A9A9A9;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.update-back-btn:hover {
+    background-color: #888;
+}

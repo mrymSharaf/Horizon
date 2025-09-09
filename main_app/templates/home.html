@@ -3,12 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <title>Horizon</title>
 </head>
 <body>
-    <h1>Welcome to Horizon</h1>
-    <p>Start your journy with us</p>
-    <a href="{% url "sign-up" %}">Sign Up</a>
-    <a href="{% url "login" %}">login</a>
+    <div class="home-container">
+        <div class="home-left">
+            <h1 class="home-title">Welcome to Horizon</h1>
+            <p class="home-subtitle">Start your journey with us</p>
+            <div class="home-buttons">
+                <a href="{% url 'sign-up' %}" class="btn signup-btn">Sign Up</a>
+                <a href="{% url 'login' %}" class="btn login-btn">Login</a>
+            </div>
+        </div>
+        <div class="home-right">
+            <div id="animation">
+                <lottie-player 
+                    src="{% static 'icons/Passport.json' %}" 
+                    background="transparent"  
+                    speed="1"  
+                    loop  
+                    autoplay>
+                </lottie-player>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

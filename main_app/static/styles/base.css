@@ -21,7 +21,7 @@ html {
 
 .sidebar {
     width: 270px;
-    background-color: #F5F2E9;
+    background-color: #e8e8e8;
     color: #4F4F4D;
     display: flex;
     flex-direction: column;
@@ -36,10 +36,14 @@ html {
     height: 100vh;
 }
 
-.sidebar-logo img {
-    width: 150px;
-    margin: 0 auto 50px;
+.sidebar-logo h1, .sidebar-logo a  {
+    width: 170px;
+    margin: 0 auto 25px;
     display: block;
+    text-decoration: none;
+    font-size: 3rem;
+    color:#4F4F4D;
+    font-weight: 660;
 }
 
 .top-section {

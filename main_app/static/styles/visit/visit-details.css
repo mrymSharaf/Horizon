@@ -8,7 +8,7 @@
 }
 
 .visit-card {
-    background-color: #F5F2E9;
+    background-color: #e8e8e8;
     border-radius: 15px;
     padding: 20px;
     max-width: 880px;
@@ -167,7 +167,7 @@ textarea:focus {
 }
 
 .comment {
-    background-color: #EFE9E1;
+    background-color: #d7d6d5f4;
     border-radius: 12px;
     padding: 10px 15px;
     display: flex;

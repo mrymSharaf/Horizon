@@ -27,13 +27,13 @@
           <ul class="lists">
               {% if user.is_authenticated %}
               <li>
-                  <a href="{% url 'user-details' user.pk %}" class="profile-link">
-                      {% if user.profile.profile_photo %}
-                        <img src="{{ user.profile.profile_photo.url }}" alt="{{ user.username }}'s profile picture" style="width:28px;height:28px;border-radius:50%;margin-right:8px;">
+                  <a href="{% url 'user-details' request.user.pk %}" class="profile-link">
+                      {% if request.user.profile.profile_photo %}
+                        <img src="{{ request.user.profile.profile_photo.url }}" alt="{{ request.user.username }}'s profile picture">
                       {% else %}
                         <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757084328/no_profile_picture_sfbvet.avif" alt="Default profile picture" style="width:28px;height:28px;border-radius:50%;margin-right:8px;">
                       {% endif %}
-                      <span>{{user.username}}'s profile</span>
+                      <span>{{request.user.username}}'s profile</span>
                   </a>
               </li>
               {% endif %}

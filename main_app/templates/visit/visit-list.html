@@ -4,12 +4,21 @@
 {% block head %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link rel="stylesheet" href="{% static 'styles/visit/all-visits.css' %}">
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 {% endblock head %}
 
 {% block body %}
 <div class="welcome-message">
     <h1 class="heading">Welcome, {{user.username}}</h1>
     <p class="sub-heading">Start Exploring</p>
+<lottie-player 
+    src="{% static 'icons/PlaneAnimation.json' %}" 
+    background="transparent"  
+    speed="1"  
+    class="travel-animation"
+    loop  
+    autoplay>
+</lottie-player>
 </div>
 
 {% for visit in visits %}

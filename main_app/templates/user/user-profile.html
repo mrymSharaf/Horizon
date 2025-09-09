@@ -34,10 +34,12 @@
     <div class="profile-posts">
         {% if visits %}
             {% for visit in visits %}
-            <a href="{% url 'visit-details' visit.pk %}" class="post-card" >
-                <div class="hidden-text">View more</div>
-                <img src="{{ visit.photo.url }}" alt="Visit photo">
-            </a>
+            <div class="post-card">
+                 <a href="{% url 'visit-details' visit.pk %}">
+                     <img src="{{ visit.photo.url }}" alt="Visit photo">
+                     <span class="hidden-text">View more</span>
+                 </a>
+            </div>
             {% endfor %}
         {% else %}
             {% if request.user == user %}

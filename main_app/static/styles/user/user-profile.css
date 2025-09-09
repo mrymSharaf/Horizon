@@ -1,4 +1,3 @@
-/* Container */
 .profile-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -8,7 +7,6 @@
     gap: 40px;
 }
 
-/* Profile header */
 .profile-header {
     display: flex;
     align-items: center;
@@ -99,11 +97,7 @@
     background: rgba(0, 0, 0, 0.3);
     opacity: 0;
     transition: opacity 0.3s ease;
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
-}
-
-.post-card:hover img {
-    transform: scale(1.05);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .post-card:hover::after {

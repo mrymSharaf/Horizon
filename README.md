@@ -23,11 +23,9 @@ The motivation behind Horizon is to create an app that not only helps with trave
 
 ## 🚀 Getting Started
 
-### Deployed App  
-🔗[View Horizon Live]()  
-
 ###  📑 Planning Materials  
 **Entity Relationship Diagram (ERD):** 
+
 <img width="1742" height="866" alt="Image" src="https://github.com/user-attachments/assets/50c55e1c-5076-4b94-ac6f-fccc8fdacb23" />
 
 ---
@@ -45,10 +43,13 @@ The motivation behind Horizon is to create an app that not only helps with trave
 
 ## 🙌 Attributions
 
-### 🎨 Animations 
-- Icons from [Font Awesome](https://fontawesome.com/)
-- Passport Animation from [LottieFiles](https://lottiefiles.com/free-animation/travel-icons-passport-CxDAU1AGYm)
-- Airplane Animation from [LottieFiles](https://lottiefiles.com/free-animation/plane-path-H40dI1M7AX)
+### 🐍 Django Resources 
+- [Error messages](https://stackoverflow.com/questions/15084597/django-error-message-for-login-form)
+- [Password encryption](https://stackoverflow.com/questions/73816296/password-field-is-visible-and-not-encrypted-in-django-admin-site)
+- [Additional resources](https://stackoverflow.com/questions/24273839/django-allauth-custom-login-does-not-show-errors)
+- [Search Documentation](https://docs.djangoproject.com/en/5.2/topics/db/search/)
+- [Password Reset](https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.views.PasswordResetView)
+- [Form handeling in CBV](https://docs.djangoproject.com/en/5.2/topics/class-based-views/generic-editing/)
 
 ### 📚 jQuery & AJAX 
 - [youtube](https://www.youtube.com/watch?v=kRrPtIjnxqs)
@@ -60,19 +61,16 @@ The motivation behind Horizon is to create an app that not only helps with trave
 - [Logo font](https://fonts.google.com/specimen/Arya)
 - [Content font](https://fonts.google.com/specimen/Nunito)
 
+### 🎨 Animations 
+- Icons from [Font Awesome](https://fontawesome.com/)
+- Passport Animation from [LottieFiles](https://lottiefiles.com/free-animation/travel-icons-passport-CxDAU1AGYm)
+- Airplane Animation from [LottieFiles](https://lottiefiles.com/free-animation/plane-path-H40dI1M7AX)
+
 ### 🗺️ Leaflet API
 - [Tutorial](https://leafletjs.com/examples/quick-start/)
 
 ### ☁️ Cloudinary 
 - [Documentation](https://cloudinary.com/blog/managing-media-files-in-django)
-
-### 🐍 Django Resources 
-- [Error messages](https://stackoverflow.com/questions/15084597/django-error-message-for-login-form)
-- [Password encryption](https://stackoverflow.com/questions/73816296/password-field-is-visible-and-not-encrypted-in-django-admin-site)
-- [Additional resources](https://stackoverflow.com/questions/24273839/django-allauth-custom-login-does-not-show-errors)
-- [Search Documentation](https://docs.djangoproject.com/en/5.2/topics/db/search/)
-- [Password Reset](https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.views.PasswordResetView)
-- [Form handeling in CBV](https://docs.djangoproject.com/en/5.2/topics/class-based-views/generic-editing/)
 
 
 ### 📷 Additional Resources
@@ -81,12 +79,7 @@ The motivation behind Horizon is to create an app that not only helps with trave
 
 ---
 
-## Favourit Line of code 
-
-
----
-
-## Next Steps
+## 🔮 Next Steps
 
 Planned enhancements for Horizon:  
 - ✅ Improve responsive design for mobile users   

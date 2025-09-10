@@ -5,7 +5,6 @@ from .models import City, Visit, Comment, VisitLike, CommentLike, Country
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
-from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from main_app.forms import SignupForm, VisitForm , CommentForm, UserUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin

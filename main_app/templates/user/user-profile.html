@@ -43,7 +43,10 @@
             {% endfor %}
         {% else %}
             {% if request.user == user %}
-                <a href="{% url 'visit-create' %}" class="btn">Create a Post</a>
+                <div class="no-posts-container"> 
+                    <p class="no-posts-text">No posts</p>
+                    <a href="{% url 'visit-create' %}" class="new-post-btn">Create a Post</a>
+                </div>
             {% endif %}
         {% endif %}
     </div>

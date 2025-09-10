@@ -55,6 +55,8 @@ input[type="password"]:focus {
 }
 
 .login-btn {
+    font-family: "Nunito", sans-serif;
+    font-size: 0.95rem;
     padding: 12px;
     background-color: #4F4F4D;
     color: #fff;

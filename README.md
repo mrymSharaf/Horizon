@@ -15,10 +15,10 @@ The motivation behind Horizon is to create an app that not only helps with trave
 ## Getting Started
 
 ### Deployed App  
-[🔗 View Horizon Live]()  
+🔗[View Horizon Live]()  
 
 ### Planning Materials  
-- [Entity Relationship Diagram - ERD]
+- Entity Relationship Diagram - ERD
 <img width="1742" height="866" alt="Image" src="https://github.com/user-attachments/assets/50c55e1c-5076-4b94-ac6f-fccc8fdacb23" />
 
 ---
@@ -63,6 +63,15 @@ The motivation behind Horizon is to create an app that not only helps with trave
 - [Password encryption](https://stackoverflow.com/questions/73816296/password-field-is-visible-and-not-encrypted-in-django-admin-site)
 - [Additional resources](https://stackoverflow.com/questions/24273839/django-allauth-custom-login-does-not-show-errors)
 
+**additional Recources**
+- [No profile image](https://www.shutterstock.com/search/default-user)
+
+
+---
+
+## Favourit Line of code 
+
+
 ---
 
 ## Next Steps
@@ -70,4 +79,5 @@ The motivation behind Horizon is to create an app that not only helps with trave
 Planned enhancements for Horizon:  
 - ✅ Improve responsive design for mobile users   
 - ✅ Integerate a following / followers system
+- ✅ add multiple image upload
 

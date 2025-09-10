@@ -18,6 +18,9 @@
 
     <form method="post" enctype="multipart/form-data" id="VisitForm" data-cities-url="{% url 'ajax_load_cities' %}" class="visit-form">
     {% csrf_token %}
+
+    <label for="photo">Photo</label>
+    <input value="{{visit.photo}}" type="file" name="photo" id="photo" accept="image/*" required>
     
     <label for="country">Country</label>
         {{ form.country }}
@@ -31,11 +34,8 @@
     <label for="end_date">End Date</label>
     <input value="{{ visit.end_date|date:'Y-m-d' }}" type="date" name="end_date" id="end_date">
 
-    <label for="content">Content</label>
+    <label for="content">Caption</label>
     <textarea name="content" id="content" rows="4">{{visit.content}}</textarea>
-
-    <label for="photo">Photo</label>
-    <input value="{{visit.photo}}" type="file" name="photo" id="photo" accept="image/*" required>
 
       
       <div class="visit-form-actions">

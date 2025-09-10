@@ -112,7 +112,7 @@
             <form method="post" action="{% url 'comment-create' visit.pk %}">
                 {% csrf_token %}
                 <textarea id="content" name="content" placeholder="Write a comment..." required></textarea>
-                <button type="submit" class="action-btn">Submit</button>
+                <button type="submit" class="action-btn">Comment</button>
             </form>
         </div>
         {% else %}

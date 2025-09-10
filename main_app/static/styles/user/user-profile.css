@@ -73,7 +73,7 @@
 .profile-posts {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 10px;
+    gap: 13px;
     min-height: 300px;
 }
 
@@ -82,13 +82,16 @@
     display: block;
     overflow: hidden;
     cursor: pointer;
+    border-radius: 8px; 
 }
 
 .post-card img {
     width: 100%;
+    height: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     transition: transform 0.3s ease;
+    border-radius: 8px;
 }
 
 .post-card::after {

@@ -35,7 +35,7 @@
         <input class="update-form-input" type="text" id="last_name" name="last_name" value="{{ form.last_name.value }}">
 
         <label class="update-form-label" for="bio"> Bio</label>
-        <textarea id="bio" name="bio">{{ form.profile.bio.value }}</textarea>
+        <textarea id="bio" name="bio">{{ request.user.profile.bio }}</textarea>
 
         <a href="{% url 'user-change-password' %}" class="update-form-link">Change Password</a>
         <div class="update-form-actions">

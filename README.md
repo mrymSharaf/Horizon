@@ -1,4 +1,4 @@
-## 🌍 Horizon
+## ✈️🌍 Horizon
 <img width="1610" height="744" alt="Image" src="https://github.com/user-attachments/assets/fce6ea81-77cf-4dc4-8507-3ba366ba0948" />
 
 
@@ -72,7 +72,7 @@ The motivation behind Horizon is to create an app that not only helps with trave
 - [Additional resources](https://stackoverflow.com/questions/24273839/django-allauth-custom-login-does-not-show-errors)
 - [Search Documentation](https://docs.djangoproject.com/en/5.2/topics/db/search/)
 - [Password Reset](https://docs.djangoproject.com/en/5.2/topics/auth/default/#django.contrib.auth.views.PasswordResetView)
--[Form handeling in CBV](https://docs.djangoproject.com/en/5.2/topics/class-based-views/generic-editing/)
+- [Form handeling in CBV](https://docs.djangoproject.com/en/5.2/topics/class-based-views/generic-editing/)
 
 
 ### 📷 Additional Resources

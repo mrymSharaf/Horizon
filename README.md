@@ -1,6 +1,6 @@
 ## Horizon
 <img width="1610" height="744" alt="Image" src="https://github.com/user-attachments/assets/fce6ea81-77cf-4dc4-8507-3ba366ba0948" />
----
+
 
 ## About
 
@@ -42,26 +42,26 @@ The motivation behind Horizon is to create an app that not only helps with trave
 - Airplane Animation from [LottieFiles](https://lottiefiles.com/free-animation/plane-path-H40dI1M7AX)
 
 **jQuerey and AJAX**
-- (https://www.youtube.com/watch?v=kRrPtIjnxqs)
-- (https://www.w3schools.com/jquery/html_html.asp)
-- (https://stackoverflow.com/questions/29796169/how-to-add-jquery-code-into-html-page)
-- (https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html)
+- [youtube](https://www.youtube.com/watch?v=kRrPtIjnxqs)
+- [3wschools](https://www.w3schools.com/jquery/html_html.asp)
+- [Stack overflow](https://stackoverflow.com/questions/29796169/how-to-add-jquery-code-into-html-page)
+- [Dependent dropdown list](https://simpleisbetterthancomplex.com/tutorial/2018/01/29/how-to-implement-dependent-or-chained-dropdown-list-with-django.html)
 
 **Fonts**
-- (https://fonts.google.com/specimen/Arya)
-- (https://fonts.google.com/specimen/Nunito)
+- [Logo font](https://fonts.google.com/specimen/Arya)
+- [Content font](https://fonts.google.com/specimen/Nunito)
 
 **Leaflet API**
-- (https://leafletjs.com/examples/quick-start/)
+- [Tutorial](https://leafletjs.com/examples/quick-start/)
 
 **Cloudinary**
-- (https://cloudinary.com/blog/managing-media-files-in-django)
+- [Documentation](https://cloudinary.com/blog/managing-media-files-in-django)
 
 **Django Resources**
-- (https://stackoverflow.com/questions/15084597/django-error-message-for-login-form)
-- (https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded)
-- (https://stackoverflow.com/questions/73816296/password-field-is-visible-and-not-encrypted-in-django-admin-site)
-- (https://stackoverflow.com/questions/24273839/django-allauth-custom-login-does-not-show-errors)
+- [Error messages](https://stackoverflow.com/questions/15084597/django-error-message-for-login-form)
+- [Image preview](https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded)
+- [Password encryption](https://stackoverflow.com/questions/73816296/password-field-is-visible-and-not-encrypted-in-django-admin-site)
+- [Additional resources](https://stackoverflow.com/questions/24273839/django-allauth-custom-login-does-not-show-errors)
 
 ---
 
@@ -71,4 +71,3 @@ Planned enhancements for Horizon:
 - ✅ Improve responsive design for mobile users   
 - ✅ Integerate a following / followers system
 
----

@@ -54,6 +54,11 @@
             {% endif %}
         </button>
     </form>
+
+        <a href="{% url 'visit-details' visit.pk %}" class="comment-btn">
+            <i class="fa-regular fa-comment"></i> <span class="comment-count">{{ visit.comments.count }}</span>
+        </a>
+
     </div>
 
     <a href="{% url 'country-details' visit.country.pk %}">

@@ -290,13 +290,19 @@ def load_cities(request):
     cities = City.objects.filter(country_id=country_id).order_by('city_name')
     return render(request, 'city/city_dropdown_list_options.html', {'cities': cities})
 
+
 class FollowersListView(LoginRequiredMixin,ListView):
     model = Follow
     template_name = 'follow/followrs-list.html'
     context_object_name = 'followers'
     
     def get_queryset(self):
-        return Follow.objects.filter(following_id= self.kwargs["pk"])
+        return Follow.objects.filter(following_id= self.kwargs['pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile_user'] = User.objects.get(pk=self.kwargs['pk'])
+        return context
 
 
 class FollowingListView(LoginRequiredMixin,ListView):
@@ -305,7 +311,12 @@ class FollowingListView(LoginRequiredMixin,ListView):
     context_object_name = 'following'
     
     def get_queryset(self):
-        return Follow.objects.filter(follower_id= self.kwargs["pk"])
+        return Follow.objects.filter(follower_id= self.kwargs['pk'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile_user'] = User.objects.get(pk=self.kwargs['pk'])
+        return context
 
 
 class ToggleFollow(LoginRequiredMixin, View):

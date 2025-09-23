@@ -6,7 +6,7 @@
 
 {% block body %}
 <h1>Following</h1>
-<a href="{%url 'user-details' user.pk %}"><i class="fa-solid fa-xmark"></i></a>
+<a href="{%url 'user-details' profile_user.pk %}"><i class="fa-solid fa-xmark"></i></a>
 
 {% if following %}
     {% for follow in following %}

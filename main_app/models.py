@@ -95,3 +95,15 @@ class Profile(models.Model):
         return f"{self.user.username} Profile"
     
     
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete= models.CASCADE, related_name='following')
+    following = models.ForeignKey(User, on_delete= models.CASCADE, related_name='followers')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'follow'
+        unique_together = ('follower', 'following') 
+    
+    def __str__(self):
+        return f'{self.follower.username} follows {self.following.username}'
+    

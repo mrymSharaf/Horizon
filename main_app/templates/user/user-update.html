@@ -12,13 +12,13 @@
         {% csrf_token %}
         <div>
             <img id="profilePreview"
-             src="{% if request.user.profile.profile_photo %}
+            src="{% if request.user.profile.profile_photo %}
                     {{ request.user.profile.profile_photo.url }}
                 {% else %}
-                     https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp
+                    https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp
                 {% endif %}"
-             alt="Profile Photo"
-             style="width:150px; height:150px; object-fit:cover;">
+            alt="Profile Photo"
+            style="width:150px; height:150px; object-fit:cover;">
         </div>
 
         <label class="update-form-label" for="profile_photo">Profile Photo</label>

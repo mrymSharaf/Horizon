@@ -34,7 +34,7 @@
                     {% csrf_token %}
                     <button type="submit" class="follow-btn">
                     {% if is_following %}
-                        <span class="follow-text" data-user="{{ user.pk }}">Unfollow</span>
+                        <span class="follow-text" data-user="{{ user.pk }}">Following</span>
                     {% else %}
                         <span class="follow-text" data-user="{{ user.pk }}">Follow</span>
                     {% endif %}
@@ -43,8 +43,9 @@
                 {% endif %}
 
                 <div class="follow-info">
-                    <a href="{% url 'followers' user.pk %}"><span class="followers-count">{{ followers_count| default:"0" }}</span> Followers</a> |
-                    <a href="{% url 'following' user.pk %}"><span class="following-count">{{ following_count| default:"0" }}</span> Following</a>
+                    <span class="posts-count">{{ posts_count|default:"0" }}</span> posts |
+                    <a href="{% url 'followers' user.pk %}"><span class="followers-count">{{ followers_count| default:"0" }}</span> followers</a> |
+                    <a href="{% url 'following' user.pk %}"><span class="following-count">{{ following_count| default:"0" }}</span> following</a>
                 </div>
             </div>
 
@@ -92,7 +93,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if(response.followed) {
-                    $(`.follow-text[data-user=${user_id}]`).text("Unfollow")
+                    $(`.follow-text[data-user=${user_id}]`).text("Following")
                 } else {
                     $(`.follow-text[data-user=${user_id}]`).text("Follow")
                 }

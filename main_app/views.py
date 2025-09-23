@@ -201,6 +201,7 @@ class UserDetailView(LoginRequiredMixin,DetailView):
         context["visits"] = self.object.visits.all().order_by('-created_at')
         context["followers_count"] = Follow.objects.filter(following=self.object).count()
         context["following_count"] = Follow.objects.filter(follower=self.object).count()
+        context["posts_count"] = self.object.visits.count()
         
         if self.request.user.is_authenticated and self.request.user != self.object:
             context["is_following"] = Follow.objects.filter(follower=self.request.user, following=self.object).exists()

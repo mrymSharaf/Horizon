@@ -3,7 +3,6 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'styles/user/user-profile.css' %}">
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {% endblock head %}
 
@@ -31,21 +30,21 @@
 
             <div class="follow-section">
                 {% if request.user != user %}
-                <form method="post" action="{% url 'toggle-follow' user.pk %}" class="follow-form" id="follow-{{ user.pk }}" data-user="{{ user.id }}">
+                <form method="post" action="{% url 'toggle-follow' user.pk %}" class="follow-form" id="follow-{{ user.pk }}" data-user="{{ user.pk }}">
                     {% csrf_token %}
                     <button type="submit" class="follow-btn">
                     {% if is_following %}
-                        <span class="follow-text" data-user="{{ user.id }}">Unfollow</span>
+                        <span class="follow-text" data-user="{{ user.pk }}">Unfollow</span>
                     {% else %}
-                        <span class="follow-text" data-user="{{ user.id }}">Follow</span>
+                        <span class="follow-text" data-user="{{ user.pk }}">Follow</span>
                     {% endif %}
                     </button>
                 </form>
                 {% endif %}
 
                 <div class="follow-info">
-                    <span class="followers-count">{{ followers_count| default:"0" }}</span> Followers |
-                    <span class="following-count">{{ following_count| default:"0" }}</span> Following
+                    <a href="{% url 'followers' user.pk %}"><span class="followers-count">{{ followers_count| default:"0" }}</span> Followers</a> |
+                    <a href="{% url 'following' user.pk %}"><span class="following-count">{{ following_count| default:"0" }}</span> Following</a>
                 </div>
             </div>
 

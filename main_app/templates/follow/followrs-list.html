@@ -5,6 +5,25 @@
 {% endblock head %}
 
 {% block body %}
-<h1>followers</h1>
+<h1>Followers</h1>
+<a href="{% url 'user-details' user.pk %}"><i class="fa-solid fa-xmark"></i></a>
+
+{% if followers %}
+    {% for follow in followers %}
+        <div class="follow-item">
+            <a href="{% url 'user-details' follow.follower.pk %}">
+                {% comment %} {% if follow.follower.profile.profile_photo %}
+                    <img src="{{ follow.follower.profile.profile_photo.url }}" alt="profile photo" class="profile-img">
+                {% else %}
+                    <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp" alt="Default Profile" class="profile-img">
+                {% endif %} {% endcomment %}
+                {{ follow.follower.username }}
+            </a>
+            <span class="user-full-name">{{ follow.follower.first_name }} {{ follow.follower.last_name }}</span>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No followers yet</p>
+{% endif %}
 
 {% endblock body %}

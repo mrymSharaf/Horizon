@@ -21,8 +21,8 @@ class SignUpView(CreateView):
     form_class = SignupForm
     template_name = "registration/signup.html"
     success_url = reverse_lazy("login")
-    
-    
+
+
 class VisitListView(LoginRequiredMixin,ListView):
     model = Visit
     template_name = 'visit/visit-list.html'
@@ -35,6 +35,7 @@ class VisitListView(LoginRequiredMixin,ListView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         context['liked_visits'] = set(VisitLike.objects.filter(user=user).values_list('visit_id', flat=True))
+        context['user_following'] = set(Follow.objects.filter(follower=user).values_list('following_id', flat=True))
         return context
 
 
@@ -73,12 +74,12 @@ class VisitCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('visit-list')
 
-    
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
-    
+
+
 class VisistUpdateView(LoginRequiredMixin,UpdateView):
     model = Visit
     template_name = 'visit/visit-form.html'
@@ -127,7 +128,7 @@ class CommentDeleteView(LoginRequiredMixin,DeleteView):
     
     def get_queryset(self):
         return Comment.objects.filter(user=self.request.user)
-    
+
 
 class ToggleVisitLike(LoginRequiredMixin, View):
     def post(self, request, pk):
@@ -147,7 +148,7 @@ class ToggleVisitLike(LoginRequiredMixin, View):
             return JsonResponse(data)
             
         return redirect('visit-details', pk=visit.pk) 
-    
+
 
 
 class ToggleVisitLikeFeed(LoginRequiredMixin, View):
@@ -168,7 +169,7 @@ class ToggleVisitLikeFeed(LoginRequiredMixin, View):
             return JsonResponse(data)
             
         return redirect('visit-list') 
-    
+
 
 class ToggleCommentLike(LoginRequiredMixin, View):
     def post(self, request, pk):
@@ -229,7 +230,7 @@ class UserChangePassword(UserPassesTestMixin, PasswordChangeView):
     
     def get_success_url(self):
         return reverse_lazy("user-details", kwargs={"pk": self.request.user.pk})
-    
+
 
 class UserDeleteView(UserPassesTestMixin, DeleteView):
     model = User
@@ -238,7 +239,7 @@ class UserDeleteView(UserPassesTestMixin, DeleteView):
     
     def test_func(self):
         return self.request.user == self.get_object()
-    
+
 
 class CountryDetailView(LoginRequiredMixin,DetailView):
     model = Country
@@ -249,7 +250,7 @@ class CountryDetailView(LoginRequiredMixin,DetailView):
         context = super().get_context_data(**kwargs)
         context['visits'] = self.get_object().visits.all().order_by('-created_at') 
         return context 
-    
+
 
 class Search(LoginRequiredMixin,TemplateView):
     template_name = 'search.html'
@@ -283,7 +284,7 @@ class Search(LoginRequiredMixin,TemplateView):
         context['countries'] = countries
         
         return context
-    
+
 
 def load_cities(request):
     country_id = request.GET.get('country')

@@ -148,6 +148,8 @@ class ToggleVisitLike(LoginRequiredMixin, View):
             
         return redirect('visit-details', pk=visit.pk) 
     
+
+
 class ToggleVisitLikeFeed(LoginRequiredMixin, View):
     def post(self, request, pk):
         visit = Visit.objects.get(pk=pk)
@@ -287,3 +289,12 @@ class FollowersListView(ListView):
     
     def get_queryset(self):
         return Follow.objects.filter(following_id= self.kwargs["pk"])
+
+
+class FollowingListView(ListView):
+    model = Follow
+    template_name = 'follow/following-list.html'
+    context_object_name = 'following'
+    
+    def get_queryset(self):
+        return Follow.objects.filter(follower_id= self.kwargs["pk"])

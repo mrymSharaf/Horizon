@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import City, Visit, Comment, VisitLike, CommentLike, Country
+from .models import City, Visit, Comment, VisitLike, CommentLike, Country, Follow
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse, reverse_lazy
@@ -69,7 +69,7 @@ class VisitCreateView(LoginRequiredMixin, CreateView):
     model = Visit
     template_name = 'visit/visit-form.html'
     form_class = VisitForm
-     
+    
     def get_success_url(self):
         return reverse('visit-list')
 
@@ -107,7 +107,7 @@ class CommentCreateView(LoginRequiredMixin,CreateView):
     model = Comment
     template_name = 'comment/comment-form.html'
     form_class = CommentForm
-     
+    
     def get_success_url(self):
         return reverse('visit-details', kwargs={'pk': self.kwargs['visit_id']})
 
@@ -140,11 +140,11 @@ class ToggleVisitLike(LoginRequiredMixin, View):
             liked = True
     
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':     
-             data = {
+            data = {
                 'liked': liked,
                 'count': visit.likes.count(),
-                 }
-             return JsonResponse(data)
+                }
+            return JsonResponse(data)
             
         return redirect('visit-details', pk=visit.pk) 
     
@@ -159,11 +159,11 @@ class ToggleVisitLikeFeed(LoginRequiredMixin, View):
             liked = True
     
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':     
-             data = {
+            data = {
                 'liked': liked,
                 'count': visit.likes.count(),
-                 }
-             return JsonResponse(data)
+                }
+            return JsonResponse(data)
             
         return redirect('visit-list') 
     
@@ -180,9 +180,9 @@ class ToggleCommentLike(LoginRequiredMixin, View):
         
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             data = {
-             'liked': liked,
-             'count': comment.likes.count(),
-             }
+            'liked': liked,
+            'count': comment.likes.count(),
+            }
             return JsonResponse(data)
             
         return redirect('visit-details', pk=comment.visit.pk)
@@ -205,8 +205,8 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = UserUpdateForm
 
     def test_func(self):
-       return self.request.user == self.get_object()
-   
+        return self.request.user == self.get_object()
+
     def get_success_url(self):
         return reverse_lazy("user-details", kwargs={"pk": self.object.id})
 
@@ -279,3 +279,11 @@ def load_cities(request):
     country_id = request.GET.get('country')
     cities = City.objects.filter(country_id=country_id).order_by('city_name')
     return render(request, 'city/city_dropdown_list_options.html', {'cities': cities})
+
+class FollowersListView(ListView):
+    model = Follow
+    template_name = 'follow/followrs-list.html'
+    context_object_name = 'followers'
+    
+    def get_queryset(self):
+        return Follow.objects.filter(following_id= self.kwargs["pk"])

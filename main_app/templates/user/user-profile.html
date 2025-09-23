@@ -35,10 +35,10 @@
         {% if visits %}
             {% for visit in visits %}
             <div class="post-card">
-                 <a href="{% url 'visit-details' visit.pk %}">
-                     <img src="{{ visit.photo.url }}" alt="Visit photo">
-                     <span class="hidden-text">View more</span>
-                 </a>
+                <a href="{% url 'visit-details' visit.pk %}">
+                    <img src="{{ visit.photo.url }}" alt="Visit photo">
+                    <span class="hidden-text">View more</span>
+                </a>
             </div>
             {% endfor %}
         {% else %}

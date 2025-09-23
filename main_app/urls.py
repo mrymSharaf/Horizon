@@ -25,6 +25,7 @@ urlpatterns = [
    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='user-delete'),
    path('users/<int:pk>/followers/', views.FollowersListView.as_view(), name='followers'),
    path('users/<int:pk>/following/', views.FollowingListView.as_view(), name='following'),
+   path('user/<int:pk>/follow/', views.ToggleFollow.as_view(), name='toggle-follow'),
    
    path('country/<int:pk>/', views.CountryDetailView.as_view(), name='country-details'),
    

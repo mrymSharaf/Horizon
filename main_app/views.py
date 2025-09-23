@@ -197,7 +197,15 @@ class UserDetailView(LoginRequiredMixin,DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["visits"] = self.object.visits.all().order_by('-created_at')  
+        context["visits"] = self.object.visits.all().order_by('-created_at')
+        context["followers_count"] = Follow.objects.filter(following=self.object).count()
+        context["following_count"] = Follow.objects.filter(follower=self.object).count()
+        
+        if self.request.user.is_authenticated and self.request.user != self.object:
+            context["is_following"] = Follow.objects.filter(follower=self.request.user, following=self.object).exists()
+        else:
+            context["is_following"] = False   
+        
         return context
 
 
@@ -232,7 +240,7 @@ class UserDeleteView(UserPassesTestMixin, DeleteView):
         return self.request.user == self.get_object()
     
 
-class CountryDetailView(DetailView):
+class CountryDetailView(LoginRequiredMixin,DetailView):
     model = Country
     template_name = 'country/country-details.html'
     context_object_name = 'country'
@@ -243,7 +251,7 @@ class CountryDetailView(DetailView):
         return context 
     
 
-class Search(TemplateView):
+class Search(LoginRequiredMixin,TemplateView):
     template_name = 'search.html'
     
     def get_context_data(self, **kwargs):
@@ -282,7 +290,7 @@ def load_cities(request):
     cities = City.objects.filter(country_id=country_id).order_by('city_name')
     return render(request, 'city/city_dropdown_list_options.html', {'cities': cities})
 
-class FollowersListView(ListView):
+class FollowersListView(LoginRequiredMixin,ListView):
     model = Follow
     template_name = 'follow/followrs-list.html'
     context_object_name = 'followers'
@@ -291,10 +299,33 @@ class FollowersListView(ListView):
         return Follow.objects.filter(following_id= self.kwargs["pk"])
 
 
-class FollowingListView(ListView):
+class FollowingListView(LoginRequiredMixin,ListView):
     model = Follow
     template_name = 'follow/following-list.html'
     context_object_name = 'following'
     
     def get_queryset(self):
         return Follow.objects.filter(follower_id= self.kwargs["pk"])
+
+
+class ToggleFollow(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        user_to_follow = User.objects.get(pk=pk)
+        follow, created = Follow.objects.get_or_create(follower=request.user, following=user_to_follow)
+        if not created:
+            follow.delete()
+            followed = False
+        else:
+            followed = True
+        
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            data = {
+                'followed': followed,
+                'followers_count': Follow.objects.filter(following=user_to_follow).count(),
+                'following_count': Follow.objects.filter(follower=user_to_follow).count(),
+            }
+            return JsonResponse(data)
+        
+        return redirect('user-details',pk=user_to_follow.pk)
+
+

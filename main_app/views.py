@@ -50,8 +50,8 @@ class VisitDetailView(LoginRequiredMixin,DetailView):
         comments = self.object.comments.all().order_by('-created_at')
         context['comments'] = comments
         context['liked_visits'] = set(VisitLike.objects.filter(user=user).values_list('visit_id', flat=True))
-
-
+        context['user_following'] = set(Follow.objects.filter(follower=user).values_list('following_id', flat=True))
+        
         if user.is_authenticated:
             context['did_like_visit'] = VisitLike.objects.filter(user=user, visit=self.object).exists()
 

@@ -342,3 +342,29 @@ class ToggleFollow(LoginRequiredMixin, View):
         return redirect('user-details',pk=user_to_follow.pk)
 
 
+class UserLikedVisitsView(LoginRequiredMixin, ListView):
+    model = Visit
+    template_name = 'user/user-liked-visits.html'
+    context_object_name = 'liked_visits'
+
+    def get_queryset(self):
+        user = User.objects.get(pk=self.kwargs['pk'])
+        return Visit.objects.filter(likes__user=user).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile_user = User.objects.get(pk=self.kwargs['pk'])
+        
+        context['profile_user'] = profile_user
+        context['posts_count'] = Visit.objects.filter(user=profile_user).count()
+        context['followers_count'] = Follow.objects.filter(following=profile_user).count()
+        context['following_count'] = Follow.objects.filter(follower=profile_user).count()
+        
+        if self.request.user != profile_user:
+            context['is_following'] = Follow.objects.filter(follower=self.request.user,following=profile_user).exists()
+        else:
+            context['is_following'] = False
+    
+        return context
+
+

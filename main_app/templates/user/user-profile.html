@@ -53,6 +53,11 @@
         </div>
     </div>
 
+    <div class="profile-tabs">
+        <a href="{% url 'user-details' user.pk %}"><i class="fa-solid fa-grip"></i></a>
+        <a href="{% url 'user-liked-visits' user.pk %}"><i class="fa-solid fa-heart"></i></a>
+    </div>
+
     <div class="profile-posts">
         {% if visits %}
             {% for visit in visits %}

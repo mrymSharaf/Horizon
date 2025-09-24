@@ -216,3 +216,24 @@
 .following-count, .posts-count{
     font-weight: 700;
 }
+
+.profile-tabs {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.profile-tabs a {
+    font-size: 1.5rem;
+    color: #888; 
+    text-decoration: none;
+    padding-bottom: 5px;
+    border-bottom: 4px solid transparent; 
+    transition: all 0.3s ease;
+}
+
+.profile-tabs a.active,
+.profile-tabs a:hover {
+    color: #4F4F4D;
+    border-bottom-color: #4F4F4D; 
+}

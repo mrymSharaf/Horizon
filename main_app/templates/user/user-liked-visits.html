@@ -1,11 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
-
+<link rel="stylesheet" href="{% static 'styles/user/user-profile.css' %}">
 {% endblock head %}
 
 {% block body %}
-
 <div class="profile-container">
     <div class="profile-header">
         <div class="profile-photo">
@@ -15,7 +15,6 @@
                 <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp" alt="Default Profile">
             {% endif %}
         </div>
-
         <div class="profile-info">
             <div class="username-row">
                 <h1 class="username">{{ profile_user.username }}</h1>
@@ -25,54 +24,59 @@
                         <a href="{% url 'user-delete' profile_user.pk %}"><i class="fa-solid fa-trash"></i></a>
                     </div>
                 {% endif %}
-            </div>
-
-            <div class="follow-section">
-                {% if request.user != profile_user %}
-                <form method="post" action="{% url 'toggle-follow' profile_user.pk %}" 
-                    class="follow-form" id="follow-{{ profile_user.pk }}" data-user="{{ profile_user.pk }}">
-                    {% csrf_token %}
-                    <button type="submit" class="follow-btn">
-                        {% if is_following %}
-                            <span class="follow-text" data-user="{{ profile_user.pk }}">Following</span>
-                        {% else %}
-                            <span class="follow-text" data-user="{{ profile_user.pk }}">Follow</span>
-                        {% endif %}
-                    </button>
-                </form>
-                {% endif %}
-
-                <div class="follow-info">
-                    <span class="posts-count">{{ posts_count|default:"0" }}</span> posts |
-                    <a href="{% url 'followers' profile_user.pk %}"><span class="followers-count">{{ followers_count|default:"0" }}</span> followers</a> |
-                    <a href="{% url 'following' profile_user.pk %}"><span class="following-count">{{ following_count|default:"0" }}</span> following</a>
+                <div class="follow-section">
+                    {% if request.user != profile_user %}
+                        <form method="post" action="{% url 'toggle-follow' profile_user.pk %}" class="follow-form" id="follow-{{ profile_user.pk }}" data-user="{{ profile_user.pk }}">
+                            {% csrf_token %}
+                            <button type="submit" class="follow-btn">
+                                {% if is_following %}
+                                    <span class="follow-text" data-user="{{ profile_user.pk }}">Following</span>
+                                {% else %}
+                                    <span class="follow-text" data-user="{{ profile_user.pk }}">Follow</span>
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
-
+            <div class="follow-info">
+                <span class="posts-count-group">
+                    <span class="posts-count">{{ posts_count|default:"0" }}</span>
+                    <span class="posts-label">posts</span>
+                </span>
+                <a href="{% url 'followers' user.pk %}">
+                    <span class="followers-count">{{ followers_count|default:"0" }}</span> followers
+                </a>
+                <a href="{% url 'following' user.pk %}">
+                    <span class="following-count">{{ following_count|default:"0" }}</span> following
+                </a>
+            </div>
             <p class="bio">{{ profile_user.profile.bio }}</p>
         </div>
     </div>
-
     <div class="profile-tabs">
-        <a href="{% url 'user-details' profile_user.pk %}"><i class="fa-solid fa-grip"></i></a>
-        <a href="{% url 'user-liked-visits' profile_user.pk %}"><i class="fa-solid fa-heart"></i></a>
+        <a href="{% url 'user-details' profile_user.pk %}" class="{% if request.resolver_match.url_name == 'user-details' %}active{% endif %}">
+            <i class="fa-solid fa-grip"></i>
+        </a>
+        <a href="{% url 'user-liked-visits' profile_user.pk %}" class="{% if request.resolver_match.url_name == 'user-liked-visits' %}active{% endif %}">
+            <i class="fa-solid fa-heart"></i>
+        </a>
     </div>
-
-    {% if liked_visits %}
-        <div class="posts-grid">
-            {% for visit in liked_visits %}
-                <div class="post-card">
-                    <a href="{% url 'visit-details' visit.pk %}">
-                        <img src="{{ visit.photo.url }}" alt="Visit photo">
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>{{ profile_user.username }} hasn't liked any visits</p>
-    {% endif %}
+    <div class="profile-posts">
+        {% if liked_visits %}
+                {% for visit in liked_visits %}
+                    <div class="post-card">
+                        <a href="{% url 'visit-details' visit.pk %}">
+                            <img src="{{ visit.photo.url }}" alt="Visit photo">
+                            <span class="hidden-text">View more</span>
+                        </a>
+                    </div>
+                {% endfor %}
+        {% else %}
+            <p>{{ profile_user.username }} hasn't liked any posts</p>
+        {% endif %}
+    </div>
 </div>
-
 {% endblock body %}
 
 

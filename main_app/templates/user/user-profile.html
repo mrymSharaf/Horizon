@@ -26,29 +26,35 @@
                         <a href="{% url 'user-delete' user.pk%}"><i class="fa-solid fa-trash"></i></a>
                     </div>
                 {% endif %}
-            </div>
-
-            <div class="follow-section">
-                {% if request.user != user %}
-                <form method="post" action="{% url 'toggle-follow' user.pk %}" class="follow-form" id="follow-{{ user.pk }}" data-user="{{ user.pk }}">
-                    {% csrf_token %}
-                    <button type="submit" class="follow-btn">
-                    {% if is_following %}
-                        <span class="follow-text" data-user="{{ user.pk }}">Following</span>
-                    {% else %}
-                        <span class="follow-text" data-user="{{ user.pk }}">Follow</span>
+                <div class="follow-section">
+                    {% if request.user != user %}
+                    <form method="post" action="{% url 'toggle-follow' user.pk %}" class="follow-form" id="follow-{{ user.pk }}" data-user="{{ user.pk }}">
+                        {% csrf_token %}
+                        <button type="submit" class="follow-btn">
+                        {% if is_following %}
+                            <span class="follow-text" data-user="{{ user.pk }}">Following</span>
+                        {% else %}
+                            <span class="follow-text" data-user="{{ user.pk }}">Follow</span>
+                        {% endif %}
+                        </button>
+                    </form>
                     {% endif %}
-                    </button>
-                </form>
-                {% endif %}
-
-                <div class="follow-info">
-                    <span class="posts-count">{{ posts_count|default:"0" }}</span> posts |
-                    <a href="{% url 'followers' user.pk %}"><span class="followers-count">{{ followers_count| default:"0" }}</span> followers</a> |
-                    <a href="{% url 'following' user.pk %}"><span class="following-count">{{ following_count| default:"0" }}</span> following</a>
-                </div>
+                </div> 
             </div>
+            <div class="follow-info">
+                <span class="posts-count-group">
+                    <span class="posts-count">{{ posts_count|default:"0" }}</span>
+                    <span class="posts-label">posts</span>
+                </span>
 
+                <a href="{% url 'followers' user.pk %}">
+                    <span class="followers-count">{{ followers_count|default:"0" }}</span> followers
+                </a>
+
+                <a href="{% url 'following' user.pk %}">
+                    <span class="following-count">{{ following_count|default:"0" }}</span> following
+                </a>
+            </div>
             <p class="bio">{{user.profile.bio}}</p>
         </div>
     </div>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -12,13 +12,27 @@
     {% for follow in followers %}
         <div class="follow-item">
             <a href="{% url 'user-details' follow.follower.pk %}">
-                {% comment %} {% if follow.follower.profile.profile_photo %}
+                {% if follow.follower.profile.profile_photo %}
                     <img src="{{ follow.follower.profile.profile_photo.url }}" alt="profile photo" class="profile-img">
                 {% else %}
                     <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp" alt="Default Profile" class="profile-img">
-                {% endif %} {% endcomment %}
+                {% endif %}
                 {{ follow.follower.username }}
             </a>
+            <div class="follow-section">
+                {% if request.user != follow.follower %}
+                    <form method="post" action="{% url 'toggle-follow' follow.follower.pk %}" class="follow-form" id="follow-{{ follow.follower.pk }}" data-user="{{ follow.follower.pk }}">
+                        {% csrf_token %}
+                        <button type="submit" class="follow-btn">
+                        {% if follow.follower.pk in user_following_set %}
+                            <span class="follow-text" data-user="{{ follow.follower.pk }}">Following</span>
+                        {% else %}
+                            <span class="follow-text" data-user="{{ follow.follower.pk }}">Follow</span>
+                        {% endif %}
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
             <span class="user-full-name">{{ follow.follower.first_name }} {{ follow.follower.last_name }}</span>
         </div>
     {% endfor %}
@@ -27,3 +41,38 @@
 {% endif %}
 
 {% endblock body %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    $('.follow-form').submit(function(e){
+        e.preventDefault()
+
+        const user_id = $(this).data('user') 
+        const url = $(this).attr('action')
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'user_id': user_id,
+            },
+            success: function(response) {
+                if(response.followed) {
+                    $(`.follow-text[data-user=${user_id}]`).text("Following")
+                } else {
+                    $(`.follow-text[data-user=${user_id}]`).text("Follow")
+                }
+
+                $('.followers-count').text(response.followers_count)
+                $('.following-count').text(response.following_count)
+            },
+            error: function(response) {
+                console.log('error', response)
+            }
+        })
+    })
+})
+</script>
+{% endblock scripts %}

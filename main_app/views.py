@@ -303,7 +303,10 @@ class FollowersListView(LoginRequiredMixin,ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
         context['profile_user'] = User.objects.get(pk=self.kwargs['pk'])
+        context['user_following_set'] = set(Follow.objects.filter(follower=self.request.user).values_list('following_id', flat=True))
+        
         return context
 
 
@@ -317,7 +320,10 @@ class FollowingListView(LoginRequiredMixin,ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
         context['profile_user'] = User.objects.get(pk=self.kwargs['pk'])
+        context['user_following_set'] = set(Follow.objects.filter(follower=self.request.user).values_list('following_id', flat=True))
+        
         return context
 
 

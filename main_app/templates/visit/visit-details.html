@@ -18,24 +18,25 @@
                 {% endif %}
             </a>
             <div class="user-name-time-edit">
-                <div>
-                    <a href="{% url 'user-details' visit.user.pk %}" class="username">{{ visit.user.username }}</a>
+                <div class="user-name-block">
+                    <div class="username-follow">
+                        <a href="{% url 'user-details' visit.user.pk %}" class="username">{{ visit.user.username }}</a>
+                        
+                        {% if request.user != visit.user %}
+                            <form method="post" action="{% url 'toggle-follow' visit.user.pk %}" class="follow-form" data-user="{{ visit.user.pk }}">
+                                {% csrf_token %}
+                                <button type="submit" class="follow-btn{{ visit.user.pk }}">
+                                    {% if visit.user.pk in user_following %}
+                                        • <span class="follow-text{{ visit.user.pk }}">Following</span>
+                                    {% else %}
+                                        • <span class="follow-text{{ visit.user.pk }}">Follow</span>
+                                    {% endif %}
+                                </button>
+                            </form>
+                        {% endif %}
+                    </div>
                     <p class="visit-posted">{{ visit.created_at|timesince }} ago</p>
                 </div>
-
-                {% if request.user != visit.user %}
-                    <form method="post" action="{% url 'toggle-follow' visit.user.pk %}" class="follow-form" data-user="{{ visit.user.pk }}">
-                        {% csrf_token %}
-                        <button type="submit" class="follow-btn{{ visit.user.pk }}">
-                            {% if visit.user.pk in user_following %}
-                                <span class="follow-text{{ visit.user.pk }}">Following</span>
-                            {% else %}
-                                <span class="follow-text{{ visit.user.pk }}">Follow</span>
-                            {% endif %}
-                        </button>
-                    </form>
-                {% endif %}
-
                 {% if user == visit.user %}
                 <div class="edit-delete-btns">
                     <a href="{% url 'visit-update' visit.pk %}"><i class="fa-solid fa-pencil"></i></a>
@@ -47,13 +48,11 @@
                 {% endif %}
             </div>
         </div>
-
         {% if visit.photo %}
         <div class="visit-photo">
             <img src="{{ visit.photo.url }}" alt="Visit photo">
         </div>
         {% endif %}
-
         <div class="like-section">
             <form method="post" action="{% url 'toggle_visit_like' visit.pk %}" class="like-form" id="{{ visit.pk }}">
                 {% csrf_token %}
@@ -65,83 +64,75 @@
                     {% endif %}
                 </button>
             </form>
-
             <a href="{% url 'visit-details' visit.pk %}" class="comment-btn">
                 <i class="fa-regular fa-comment"></i> <span class="comment-count">{{ visit.comments.count }}</span>
             </a>
-            
         </div>
-
         <a href="{% url 'country-details' visit.country.pk %}" class="location">
             <strong>{{ visit.city.city_name }}</strong> {{ visit.country.country_name }}
         </a>
-
         {% if visit.content %}
         <p class="visit-content">{{ visit.content }}</p>
         {% endif %}
         <p class="visit-dates">Visted on {{ visit.start_date.date }} - {{ visit.end_date.date|default:"N/A" }}</p>
 
-
-    <div class="comments-section">
-        <h2>Comments</h2>
-        {% for comment in comments %}
-        <div class="comment">
-            <div class="comment-header">
-                <div class="comment-user-left">
-                    <a href="{% url 'user-details' comment.user.pk %}">
-                        {% if comment.user.profile.profile_photo %}
-                            <img src="{{ comment.user.profile.profile_photo.url }}" alt="{{ comment.user.username }}">
-                        {% else %}
-                            <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp" alt="Default Profile">
-                        {% endif %}
-                    </a>
-                    <div class="comment-username">
-                        <a href="{% url 'user-details' comment.user.pk %}">{{ comment.user.username }}</a>
-                    </div>
-                    <div class="comment-date">{{ comment.created_at|timesince }} ago</div>
-                </div>
-                <div class="comment-actions">
-                    <form method="post" action="{% url 'toggle_comment_like' comment.pk %}" class="comment-like-form" id="{{ comment.pk }}">
-                        {% csrf_token %}
-                        <button type="submit" class="comment-like-btn{{ comment.pk }}">
-                            {% if comment.did_like %}
-                                <span class="comment-like-count">♥ {{ comment.likes.count }}</span>
-                            {% else %}
-                                <span class="comment-like-count">♡ {{ comment.likes.count }}</span>
+        <div class="comments-section">
+            <h2>Comments</h2>
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="comment-user-left">
+                            <a href="{% url 'user-details' comment.user.pk %}">
+                                {% if comment.user.profile.profile_photo %}
+                                    <img src="{{ comment.user.profile.profile_photo.url }}" alt="{{ comment.user.username }}">
+                                {% else %}
+                                    <img src="https://res.cloudinary.com/dquu356xs/image/upload/v1757511943/no-pfp_sx5tta.webp" alt="Default Profile">
+                                {% endif %}
+                            </a>
+                            <div class="comment-username">
+                                <a href="{% url 'user-details' comment.user.pk %}">{{ comment.user.username }}</a>
+                            </div>
+                            <div class="comment-date">{{ comment.created_at|timesince }} ago</div>
+                        </div>
+                        <div class="comment-actions">
+                            <form method="post" action="{% url 'toggle_comment_like' comment.pk %}" class="comment-like-form" id="{{ comment.pk }}">
+                                {% csrf_token %}
+                                <button type="submit" class="comment-like-btn{{ comment.pk }}">
+                                    {% if comment.did_like %}
+                                        <span class="comment-like-count">♥ {{ comment.likes.count }}</span>
+                                    {% else %}
+                                        <span class="comment-like-count">♡ {{ comment.likes.count }}</span>
+                                    {% endif %}
+                                </button>
+                            </form>
+                            {% if user == comment.user %}
+                                <form method="post" action="{% url 'comment-delete' comment.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                                </form>
                             {% endif %}
-                        </button>
-                    </form>
-                    {% if user == comment.user %}
-                        <form method="post" action="{% url 'comment-delete' comment.pk %}">
-                            {% csrf_token %}
-                            <button type="submit"><i class="fa-solid fa-trash"></i></button>
-                        </form>
-                    {% endif %}
+                        </div>
+                    </div>
+                    <div class="comment-content">{{ comment.content }}</div>
                 </div>
-            </div>
-            <div class="comment-content">{{ comment.content }}</div>
+            {% empty %}
+                <p>Start the conversation</p>
+            {% endfor %}
         </div>
-    {% empty %}
-        <p>Start the conversation</p>
-    {% endfor %}
-    </div>
-
-        {% if user.is_authenticated %}
-        <div class="add-comment-form">
-            <form method="post" action="{% url 'comment-create' visit.pk %}">
-                {% csrf_token %}
-                <textarea id="content" name="content" placeholder="Write a comment..." required></textarea>
-                <button type="submit" class="action-btn">Comment</button>
-            </form>
-        </div>
-        {% else %}
-            <p>Log in to comment</p>
-        {% endif %}
-
+            {% if user.is_authenticated %}
+                <div class="add-comment-form">
+                    <form method="post" action="{% url 'comment-create' visit.pk %}">
+                        {% csrf_token %}
+                        <textarea id="content" name="content" placeholder="Write a comment..." required></textarea>
+                        <button type="submit" class="action-btn">Comment</button>
+                    </form>
+                </div>
+            {% else %}
+                <p>Log in to comment</p>
+            {% endif %}
     </div>
 </div>
 {% endblock body %}
-
 {% block scripts %} 
 <script>
 $(document).ready(function() {

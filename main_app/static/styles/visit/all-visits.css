@@ -31,8 +31,28 @@
 
 .user-name-time {
     display: flex;
-    align-items: baseline;
+    flex-direction: column;
+}
+
+.username-follow {
+    display: flex;
+    align-items: center;
     gap: 6px;
+}
+
+.follow-form button[class^="follow-btn"] {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1d72b8;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.follow-form button[class^="follow-btn"]:hover {
+    color: #145a96;
 }
 
 .user-name-time .username {
@@ -40,15 +60,13 @@
     font-size: 17px;
     text-decoration: none;
     color: #4F4F4D;
-    margin-bottom: 6px;
-    margin-right: 3px;
 }
 
 .user-name-time .visit-posted {
     font-size: 0.8rem;
     color: #999;
     display: inline-block;
-    margin: 0;
+    margin-top: 2px;
 }
 
 .visit-card .user-info img {

@@ -32,21 +32,23 @@
             {% endif %}
         </a>
         <div class="user-name-time">
-            <a href="{% url 'user-details' visit.user.pk %}" class="username">{{ visit.user.username }}</a>
-            <span class="visit-posted"> • {{ visit.created_at|timesince }} ago</span>
-
-            {% if request.user != visit.user %}
+            <div class="username-follow">
+                <a href="{% url 'user-details' visit.user.pk %}" class="username">{{ visit.user.username }}</a>
+            
+                {% if request.user != visit.user %}
                 <form method="post" action="{% url 'toggle-follow' visit.user.pk %}" class="follow-form" data-user="{{ visit.user.pk }}">
                     {% csrf_token %}
                     <button type="submit" class="follow-btn{{ visit.user.pk }}">
                         {% if visit.user.pk in user_following %}
-                            <span class="follow-text{{ visit.user.pk }}">Following</span>
+                            • <span class="follow-text{{ visit.user.pk }}">Following</span>
                         {% else %}
-                            <span class="follow-text{{ visit.user.pk }}">Follow</span>
+                            • <span class="follow-text{{ visit.user.pk }}">Follow</span>
                         {% endif %}
                     </button>
                 </form>
-            {% endif %}
+                {% endif %}
+            </div>
+            <span class="visit-posted"> {{ visit.created_at|timesince }} ago</span>
         </div>
     </div>
 

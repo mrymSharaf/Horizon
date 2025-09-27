@@ -44,12 +44,39 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    align-items: flex-start;
+}
+
+.user-name-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.username-follow {
+    display: flex;
     align-items: center;
+    gap: 8px;
+}
+
+.follow-form button[class^="follow-btn"] {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1d72b8;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.follow-form button[class^="follow-btn"]:hover {
+    color: #145a96;
 }
 
 .username {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 17px;
     color: #4F4F4D;
     text-decoration: none;
 }
@@ -57,7 +84,6 @@
 .visit-posted {
     font-size: 0.85rem;
     color: #999;
-    margin-top: 3px;
 }
 
 .edit-delete-btns {
